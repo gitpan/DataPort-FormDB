@@ -14,8 +14,8 @@ use 5.001;
 
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.01';
-$DATE = '2003/06/08';
+$VERSION = '0.02';
+$DATE = '2003/06/23';
 
 use DataPort::DataFile;
 use vars qw(@ISA);
@@ -1455,21 +1455,20 @@ follow on the next lines. For example,
 
 =head1 QUALITY ASSURANCE
 
-The file F<DataPort/FileType/t/DataDB.std> is the Software
-Test Description file for the C<DataPort::FileType::DataDB>
-module. This file contains all the information
-necessary for this module to verify that
-this module meets its requirements.
+The module "t::DataPort::FormDB" is the Software
+Test Description(STD) module for the "DataPort::FileType::FormDB".
+module. 
 
 To generate all the test output files, 
-run the generated test script F<DataPort/FileType/t/DataDB.t>
-and the demonstration script F<DataPort/FileType/t/DataDB.d>,
+run the generated test script,
+run the demonstration script,
 execute the following in any directory:
 
- tg -o="clean all" -verbose -replace -run DataPort/FileType/t/DataDB.std
+ tmake -verbose -replace -run -pm=t::DataPort::FormDB
 
-Note that F<tg.pl> must be in the execution path C<$ENV{PATH}>.
-A copy F<tg.pl> is at C<STD/t/tg.pl>
+Note that F<tmake.pl> must be in the execution path C<$ENV{PATH}>
+and the "t" directory on the same level as the "lib" that
+contains the "DataPort::FileType::FormDB" module.
 
 =head1 NOTES
 

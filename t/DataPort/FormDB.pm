@@ -10,8 +10,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.01';
-$DATE = '2003/06/21';
+$VERSION = '0.02';
+$DATE = '2003/06/23';
 $FILE = __FILE__;
 
 ########
@@ -40,7 +40,7 @@ $FILE = __FILE__;
 
  Version: 
 
- Date: 2003/06/21
+ Date: 2003/06/23
 
  Prepared for: General Public 
 
@@ -128,7 +128,8 @@ L<STD FormDB Test Description Fields|Test::STDmaker/STD FormDB Test Description 
      unlink 'FormDBa1.txt';
      my $dbh_in = new DataPort::FileType::FormDB(flag=>'<', file=>'FormDB0.tdb');
      my $dbh_out = new DataPort::FileType::FormDB(flag=>'>', file=>'FormDBa1.tdb');
-     my ($$record_p, $$fields_p) = ('','');
+     my ($record,$fields) = ('','');
+     my ($$record_p, $$fields_p) = ($record,$fields);
      my $array_p = [];
      while( $dbh_in->get_record($record_p) ) {
          $dbh_in->decode_record($record_p,$fields_p);
@@ -679,7 +680,9 @@ DO: ^
     my $dbh_in = new DataPort::FileType::FormDB(flag=>'<', file=>'FormDB0.tdb');
     my $dbh_out = new DataPort::FileType::FormDB(flag=>'>', file=>'FormDBa1.tdb');
 
-    my ($$record_p, $$fields_p) = ('','');
+    my ($record,$fields) = ('','');
+    my ($$record_p, $$fields_p) = (\$record,\$fields);
+
     my $array_p = [];
     while( $dbh_in->get_record($record_p) ) {
         $dbh_in->decode_record($record_p,$fields_p);

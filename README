@@ -5,11 +5,11 @@ Title Page
 
      DataPort::FilteType::FormDB - Text Form Datatbase with advantages over CSV
 
-     Revision: B
+     Revision: D
 
-     Version: 0.04
+     Version: 0.05
 
-     Date: 2003/06/21
+     Date: 2003/06/23
 
      Prepared for: General Public 
 
@@ -23,34 +23,25 @@ Title Page
     This paragraph identifies and provides an overview of the released
     files.
 
-  1.1 Indentification
+  1.1 Identification
 
-    This release is a collection of Perl modules that extend the
-    capabilities of the Perl language.
+    This release, identified in 3.2, is a collection of Perl modules that
+    extend the capabilities of the Perl language.
 
   1.2 System overview
 
-    The system is the Perl programming language software. The system does
-    not have any hardware. The Perl programming language contains two
-    features that are utilized by this release:
-
-    1   Program Modules to extend the languages
-
-    2   Plain Old Documentation (POD) that may be embedded in the language
-
-    These features are established by the referenced documents.
-
     The system is the Perl programming language software. As established by
-    the Perl referenced documents, program modules, such the "DataPort::*"
-    modules, extend the Perl language.
+    the Perl referenced documents, program modules, such the
+    "DataPort::FileType::FormDB" module, extends the Perl language.
 
-    The "DataPort::*" program modules accesses different types of data
-    sources in different formats and streams them to a stanadard pure Perl
-    API.
+    The "DataPort::FileType::FormDB" program module accesses a text database
+    file in the very specific FormDB format and inherits generic database
+    methods from the "DataPort::DataFile" module. The
+    "DataPort::FileType::FormDB" program module is a data source for the
+    "DataPort::DataFile" module.
 
-    The feature data source is the text base FormDB. The FormDB data source
-    has improve flexability and performance over other text base formats
-    such as the Comma Separated Variable (CSV) format.
+    The FormDB format has improve flexability and performance over other
+    text base formats such as the Comma Separated Variable (CSV) format.
 
     The text format resembles as much as possible the standard hard copy
     forms. An example of a "DatatPort::FIleType::FormDB record follows:
@@ -101,7 +92,7 @@ Title Page
      File::FileUtil 
        Test::STD::Scrub
          Test::Tech
-            DataPort::FileType::FormDB DataPort::DataFile Test::STD::STDutil
+            DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
                 Test::STDmaker ExtUtils::SVDmaker
 
     Note the File::FileUtil, Test::STD::STDutil Test::STD::Scrub program
@@ -110,7 +101,7 @@ Title Page
 
   1.3 Document overview.
 
-    This document releases DataPort::FormDB version 0.04 providing
+    This document releases DataPort::FormDB version 0.05 providing
     description of the inventory, installation instructions and other
     information necessary to utilize and track this release.
 
@@ -120,46 +111,46 @@ Title Page
 
   3.1 Inventory of materials released.
 
-  3.1.1 Files.
+    This document releases the file found at the following repository(s):
 
-    This document releases the file found at the following repository:
+       http://www.softwarediamonds/packages/DataPort-FormDB-0.05
+       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.05
 
-       http://www.softwarediamonds/packages/DataPort-FormDB-0.04
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.04
+    Restrictions regarding duplication and license provisions are as
+    follows:
 
-  3.1.2 Copyright.
+    Copyright.
+        copyright © 2003 Software Diamonds
 
-    copyright © 2003 Software Diamonds
+    Copyright holder contact.
+         603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
 
-  3.1.3 Copyright holder contact.
+    License.
+        Software Diamonds permits the redistribution and use in source and
+        binary forms, with or without modification, provided that the
+        following conditions are met:
 
-     603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
+        1   Redistributions of source code, modified or unmodified must
+            retain the above copyright notice, this list of conditions and
+            the following disclaimer.
 
-  3.1.4 License.
+        2   Redistributions in binary form must reproduce the above
+            copyright notice, this list of conditions and the following
+            disclaimer in the documentation and/or other materials provided
+            with the distribution.
 
-    Software Diamonds permits the redistribution and use in source and
-    binary forms, with or without modification, provided that the following
-    conditions are met:
-
-    1   Redistributions of source code, modified or unmodified must retain
-        the above copyright notice, this list of conditions and the
-        following disclaimer.
-
-    2   Redistributions in binary form must reproduce the above copyright
-        notice, this list of conditions and the following disclaimer in the
-        documentation and/or other materials provided with the distribution.
-
-    SOFTWARE DIAMONDS, http://www.SoftwareDiamonds.com, PROVIDES THIS
-    SOFTWARE 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT
-    NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-    FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL SOFTWARE
-    DIAMONDS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-    SPECIAL,EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-    TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,DATA, OR
-    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING USE
-    OF THIS SOFTWARE, EVEN IF ADVISED OF NEGLIGENCE OR OTHERWISE) ARISING IN
-    ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE.
+        SOFTWARE DIAMONDS, http://www.SoftwareDiamonds.com, PROVIDES THIS
+        SOFTWARE 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
+        BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+        FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+        SOFTWARE DIAMONDS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        SPECIAL,EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+        LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+        USE,DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+        ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+        NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE POSSIBILITY
+        OF SUCH DAMAGE.
 
   3.2 Inventory of software contents
 
@@ -168,27 +159,14 @@ Title Page
 
      file                                                         version date       comment
      ------------------------------------------------------------ ------- ---------- ------------------------
-     lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.04    2003/06/21 revised 0.03
-     MANIFEST                                                     0.04    2003/06/21 generated, replaces 0.03
-     Makefile.PL                                                  0.04    2003/06/21 generated, replaces 0.03
-     README                                                       0.04    2003/06/21 generated, replaces 0.03
-     lib/DataPort/DataFile.pm                                     0.01    2003/06/08 unchanged
-     lib/DataPort/DataFileI.pm                                    0.01    2003/06/08 unchanged
-     lib/DataPort/FileType/FormDB.pm                              0.01    2003/06/08 unchanged
-     t/DataPort/DataFile.d                                        0.02    2003/06/21 revised 0.01
-     t/DataPort/DataFile.pm                                       0.01    2003/06/21 new
-     t/DataPort/DataFile.t                                        0.04    2003/06/21 revised 0.03
-     t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile3.tdb                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile3.txt                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile4.tdb                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile4.txt                                     0.01    2003/06/08 unchanged
-     t/DataPort/DataFile5.txt                                     0.01    2003/06/08 unchanged
-     t/DataPort/FormDB.d                                          0.02    2003/06/21 revised 0.01
-     t/DataPort/FormDB.pm                                         0.01    2003/06/21 new
-     t/DataPort/FormDB.t                                          0.04    2003/06/21 revised 0.03
+     lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.05    2003/06/23 revised 0.04
+     MANIFEST                                                     0.05    2003/06/23 generated, replaces 0.04
+     Makefile.PL                                                  0.05    2003/06/23 generated, replaces 0.04
+     README                                                       0.05    2003/06/23 generated, replaces 0.04
+     lib/DataPort/FileType/FormDB.pm                              0.02    2003/06/23 revised 0.01
+     t/DataPort/FormDB.d                                          0.03    2003/06/23 revised 0.02
+     t/DataPort/FormDB.pm                                         0.02    2003/06/23 revised 0.01
+     t/DataPort/FormDB.t                                          0.05    2003/06/23 revised 0.04
      t/DataPort/FormDB0.tdb                                       0.01    2003/06/08 unchanged
      t/DataPort/FormDBa2.tdb                                      0.01    2003/06/08 unchanged
      t/DataPort/FormDBa2.txt                                      0.01    2003/06/08 unchanged
@@ -203,13 +181,32 @@ Title Page
 
   3.3 Changes
 
-    Changed the name of "Test::Tester" to "Test::Tech". The name
-    "Test::Tester" is taken on CPAN as an upload.
+    Changes to the previous release are as follows:
 
-    Broke up the STD support utilities "Test::TestUtil" into
-    "File::FileUtil", "Test::STD::Scrub" and "Test::STD::STDutil"
+    *   Broke "DataPort::DataFile" away into its own module.
 
-    Theses changes impacted the test software.
+    *   At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
+
+        [snip]
+
+        t/DataPort/FormDB......Can't declare scalar dereference in my at
+        t/DataPort/FormDB.t line 147, near ") =" Execution of
+        t/DataPort/FormDB.t aborted due to compilation errors.
+
+        [snip]
+
+        ~~~~
+
+        The below executed correctly under Perl v5.6.1
+        MSWin32-x86-multi-thread, ActiveState build 631, binary but not
+        under the Perl version 5.008 for solaris
+
+         my ($$record_p, $$fields_p) = ('','');
+
+        Changed in t\DataPort\FormDB.t
+
+          my ($record,$fields) = ('','');
+          my ($$record_p, $$fields_p) = ($record,$fields);
 
     Changes to previous revisions are as follows:
 
@@ -274,6 +271,15 @@ Title Page
         Resolved a CPAN namespace conflict by changing the name of
         Test::Tester to Test::Tech.
 
+    DataPort_FormDB 0.04
+        Changed the name of "Test::Tester" to "Test::Tech". The name
+        "Test::Tester" is taken on CPAN as an upload.
+
+        Broke up the STD support utilities "Test::TestUtil" into
+        "File::FileUtil", "Test::STD::Scrub" and "Test::STD::STDutil"
+
+        Theses changes impacted the test software.
+
   3.4 Adaptation data.
 
     This installation requires that the installation site has the Perl
@@ -297,32 +303,40 @@ Title Page
 
   3.6 Installation instructions.
 
-    To installed the release file, use the CPAN module in the Perl release
-    or the INSTALL.PL script at the following web site:
+    Instructions for installation, installation tests and installation
+    support are as follows:
 
-     http://packages.SoftwareDiamonds.com
+    Installation Instructions.
+        To installed the release file, use the CPAN module in the Perl
+        release or the INSTALL.PL script at the following web site:
 
-    Follow the instructions for the the chosen installation software.
+         http://packages.SoftwareDiamonds.com
 
-    The distribution file is at the following respositories:
+        Follow the instructions for the the chosen installation software.
 
-       http://www.softwarediamonds/packages/DataPort-FormDB-0.04
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.04
+        The distribution file is at the following respositories:
 
-  3.6.1 Installation support.
+           http://www.softwarediamonds/packages/DataPort-FormDB-0.05
+           http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.05
 
-    If there are installation problems or questions with the installation
-    contact
+    Prerequistes.
+        'Test::Tech' => 1.08, 'Test::STD::Scrub' => 1.07, 'File::FileUtil'
+        => 1.09, 'DataPort::DataFile' => 0,
 
-     603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
+    Security, privacy, or safety precautions.
+        None.
 
-  3.6.2 Installation Tests.
+    Installation Tests.
+        Most Perl installation software will run the following test
+        script(s) as part of the installation:
 
-    Most Perl installation software will run the following test script(s) as
-    part of the installation:
+         t/DataPort/FormDB.t
 
-     t/DataPort/FormDB.t
-     t/DataPort/DataFile.t
+    Installation support.
+        If there are installation problems or questions with the
+        installation contact
+
+         603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
 
   3.7 Possible problems and known errors
 
@@ -339,9 +353,13 @@ Title Page
 
     DID Data Item Description
 
+    DOD Department of Defense
+
     POD Plain Old Documentation
 
     SVD Software Version Description
+
+    US  United States
 
 2.0 SEE ALSO
     Modules with end-user functional interfaces relating to US DOD 2167A

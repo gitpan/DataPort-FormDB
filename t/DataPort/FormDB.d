@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.02';   # automatically generated file
-$DATE = '2003/06/21';
+$VERSION = '0.03';   # automatically generated file
+$DATE = '2003/06/23';
 
 
 ##### Demonstration Script ####
@@ -40,6 +40,7 @@ use vars qw($__restore_dir__);
 BEGIN {
     use Cwd;
     use File::Spec;
+    use File::FileUtil
     use Test::Tech qw(tech_config plan demo);
 
     ########
@@ -49,14 +50,24 @@ BEGIN {
     my ($vol, $dirs, undef) = File::Spec->splitpath( $0 );
     chdir $vol if $vol;
     chdir $dirs if $dirs;
+
+    #######
+    # Add the library of the unit under test (UUT) to @INC
+    #
+    @__restore_inc__ = File::FileUtil->test_lib2inc();
+
+    unshift @INC, File::Spec->catdir( cwd(), 'lib' ); 
+
 }
 
 END {
 
-    #########
-    # Restore working directory back to when enter script
-    #
-    chdir $__restore_dir__;
+   #########
+   # Restore working directory and @INC back to when enter script
+   #
+   @INC = @__restore_inc__;
+   chdir $__restore_dir__;
+
 }
 
 print << 'MSG';
@@ -103,7 +114,9 @@ demo( "\ \ \ \ \#\#\#\#\#\#\#\
 \ \ \ \ my\ \$dbh_in\ \=\ new\ DataPort\:\:FileType\:\:FormDB\(flag\=\>\'\<\'\,\ file\=\>\'FormDB0\.tdb\'\)\;\
 \ \ \ \ my\ \$dbh_out\ \=\ new\ DataPort\:\:FileType\:\:FormDB\(flag\=\>\'\>\'\,\ file\=\>\'FormDBa1\.tdb\'\)\;\
 \
-\ \ \ \ my\ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\'\'\,\'\'\)\;\
+\ \ \ \ my\ \(\$record\,\$fields\)\ \=\ \(\'\'\,\'\'\)\;\
+\ \ \ \ my\ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\\\$record\,\\\$fields\)\;\
+\
 \ \ \ \ my\ \$array_p\ \=\ \[\]\;\
 \ \ \ \ while\(\ \$dbh_in\-\>get_record\(\$record_p\)\ \)\ \{\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_record\(\$record_p\,\$fields_p\)\;\
@@ -129,7 +142,9 @@ demo( "\ \ \ \ \#\#\#\#\#\#\#\
     my $dbh_in = new DataPort::FileType::FormDB(flag=>'<', file=>'FormDB0.tdb');
     my $dbh_out = new DataPort::FileType::FormDB(flag=>'>', file=>'FormDBa1.tdb');
 
-    my ($$record_p, $$fields_p) = ('','');
+    my ($record,$fields) = ('','');
+    my ($$record_p, $$fields_p) = (\$record,\$fields);
+
     my $array_p = [];
     while( $dbh_in->get_record($record_p) ) {
         $dbh_in->decode_record($record_p,$fields_p);

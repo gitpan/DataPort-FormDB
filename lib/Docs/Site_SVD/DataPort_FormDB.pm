@@ -10,33 +10,20 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.04';
-$DATE = '2003/06/21';
+$VERSION = '0.05';
+$DATE = '2003/06/23';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/DataPort_FormDB.pm' => [qw(0.04 2003/06/21), 'revised 0.03'],
-    'MANIFEST' => [qw(0.04 2003/06/21), 'generated, replaces 0.03'],
-    'Makefile.PL' => [qw(0.04 2003/06/21), 'generated, replaces 0.03'],
-    'README' => [qw(0.04 2003/06/21), 'generated, replaces 0.03'],
-    'lib/DataPort/DataFile.pm' => [qw(0.01 2003/06/08), 'unchanged'],
-    'lib/DataPort/DataFileI.pm' => [qw(0.01 2003/06/08), 'unchanged'],
-    'lib/DataPort/FileType/FormDB.pm' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile.d' => [qw(0.02 2003/06/21), 'revised 0.01'],
-    't/DataPort/DataFile.pm' => [qw(0.01 2003/06/21), 'new'],
-    't/DataPort/DataFile.t' => [qw(0.04 2003/06/21), 'revised 0.03'],
-    't/DataPort/DataFile0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile3.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile3.txt' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile4.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile4.txt' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile5.txt' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/FormDB.d' => [qw(0.02 2003/06/21), 'revised 0.01'],
-    't/DataPort/FormDB.pm' => [qw(0.01 2003/06/21), 'new'],
-    't/DataPort/FormDB.t' => [qw(0.04 2003/06/21), 'revised 0.03'],
+    'lib/Docs/Site_SVD/DataPort_FormDB.pm' => [qw(0.05 2003/06/23), 'revised 0.04'],
+    'MANIFEST' => [qw(0.05 2003/06/23), 'generated, replaces 0.04'],
+    'Makefile.PL' => [qw(0.05 2003/06/23), 'generated, replaces 0.04'],
+    'README' => [qw(0.05 2003/06/23), 'generated, replaces 0.04'],
+    'lib/DataPort/FileType/FormDB.pm' => [qw(0.02 2003/06/23), 'revised 0.01'],
+    't/DataPort/FormDB.d' => [qw(0.03 2003/06/23), 'revised 0.02'],
+    't/DataPort/FormDB.pm' => [qw(0.02 2003/06/23), 'revised 0.01'],
+    't/DataPort/FormDB.t' => [qw(0.05 2003/06/23), 'revised 0.04'],
     't/DataPort/FormDB0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDBa2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDBa2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -52,15 +39,15 @@ use vars qw(%INVENTORY);
 );
 
 ########
-# The SVD::SVDmaker module uses the data after the __DATA__ 
-# token to automatically generate the this file.
+# The ExtUtils::SVDmaker module uses the data after the __DATA__ 
+# token to automatically generate this file.
 #
 # Don't edit anything before __DATA_. Edit instead
 # the data after the __DATA__ token.
 #
 # ANY CHANGES MADE BEFORE the  __DATA__ token WILL BE LOST
 #
-# the next time SVD::SVDmaker generates this file.
+# the next time ExtUtils::SVDmaker generates this file.
 #
 #
 
@@ -74,11 +61,11 @@ use vars qw(%INVENTORY);
 
  DataPort::FilteType::FormDB - Text Form Datatbase with advantages over CSV
 
- Revision: B
+ Revision: D
 
- Version: 0.04
+ Version: 0.05
 
- Date: 2003/06/21
+ Date: 2003/06/23
 
  Prepared for: General Public 
 
@@ -93,42 +80,26 @@ use vars qw(%INVENTORY);
 This paragraph identifies and provides an overview
 of the released files.
 
-=head2 1.1 Indentification
+=head2 1.1 Identification
 
-This release is a collection of Perl modules that
+This release,
+identified in L<3.2|/3.2 Inventory of software contents>,
+is a collection of Perl modules that
 extend the capabilities of the Perl language.
 
 =head2 1.2 System overview
 
 The system is the Perl programming language software.
-The system does not have any hardware.
-The Perl programming language contains two features that
-are utilized by this release:
-
-=over 4
-
-=item 1
-
-Program Modules to extend the languages
-
-=item 2
-
-Plain Old Documentation (POD) that may be embedded in the language
-
-=back
-
-These features are established by the referenced documents.
-
-The system is the Perl programming language software.
 As established by the Perl referenced documents,
-program modules, such the "DataPort::*" modules, extend the Perl language.
+program modules, such the "DataPort::FileType::FormDB" module, extends the Perl language.
 
-The "DataPort::*" program modules accesses different types of
-data sources in different formats
-and streams them to a stanadard pure Perl API. 
+The "DataPort::FileType::FormDB" program module accesses a text database file
+in the very specific FormDB format
+and inherits generic database methods from the "DataPort::DataFile" module.
+The "DataPort::FileType::FormDB" program module is a data source for
+the "DataPort::DataFile" module.
 
-The feature data source is the text base FormDB. 
-The FormDB data source has improve flexability and
+The FormDB format has improve flexability and
 performance over other text base formats such as the Comma Separated
 Variable (CSV) format.
 
@@ -184,7 +155,7 @@ The dependency of the program modules in the US DOD STD2167A bundle is as follow
  File::FileUtil 
    Test::STD::Scrub
      Test::Tech
-        DataPort::FileType::FormDB DataPort::DataFile Test::STD::STDutil
+        DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
             Test::STDmaker ExtUtils::SVDmaker
 
 Note the 
@@ -197,7 +168,7 @@ and Test::TestUtil has disappeared.
 
 =head2 1.3 Document overview.
 
-This document releases DataPort::FormDB version 0.04
+This document releases DataPort::FormDB version 0.05
 providing description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -210,24 +181,27 @@ system file specification.
 
 =head2 3.1 Inventory of materials released.
 
-=head2 3.1.1 Files.
-
 This document releases the file found
-at the following repository:
+at the following repository(s):
 
-   http://www.softwarediamonds/packages/DataPort-FormDB-0.04
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.04
+   http://www.softwarediamonds/packages/DataPort-FormDB-0.05
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.05
 
 
-=head2 3.1.2 Copyright.
+Restrictions regarding duplication and license provisions
+are as follows:
+
+=over 4
+
+=item Copyright.
 
 copyright © 2003 Software Diamonds
 
-=head2 3.1.3 Copyright holder contact.
+=item Copyright holder contact.
 
  603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
 
-=head2 3.1.4 License.
+=item License.
 
 Software Diamonds permits the redistribution
 and use in source and binary forms, with or
@@ -270,6 +244,8 @@ OR TORT (INCLUDING USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE.
 
+=back
+
 =head2 3.2 Inventory of software contents
 
 The content of the released, compressed, archieve file,
@@ -277,27 +253,14 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.04    2003/06/21 revised 0.03
- MANIFEST                                                     0.04    2003/06/21 generated, replaces 0.03
- Makefile.PL                                                  0.04    2003/06/21 generated, replaces 0.03
- README                                                       0.04    2003/06/21 generated, replaces 0.03
- lib/DataPort/DataFile.pm                                     0.01    2003/06/08 unchanged
- lib/DataPort/DataFileI.pm                                    0.01    2003/06/08 unchanged
- lib/DataPort/FileType/FormDB.pm                              0.01    2003/06/08 unchanged
- t/DataPort/DataFile.d                                        0.02    2003/06/21 revised 0.01
- t/DataPort/DataFile.pm                                       0.01    2003/06/21 new
- t/DataPort/DataFile.t                                        0.04    2003/06/21 revised 0.03
- t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile3.tdb                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile3.txt                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile4.tdb                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile4.txt                                     0.01    2003/06/08 unchanged
- t/DataPort/DataFile5.txt                                     0.01    2003/06/08 unchanged
- t/DataPort/FormDB.d                                          0.02    2003/06/21 revised 0.01
- t/DataPort/FormDB.pm                                         0.01    2003/06/21 new
- t/DataPort/FormDB.t                                          0.04    2003/06/21 revised 0.03
+ lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.05    2003/06/23 revised 0.04
+ MANIFEST                                                     0.05    2003/06/23 generated, replaces 0.04
+ Makefile.PL                                                  0.05    2003/06/23 generated, replaces 0.04
+ README                                                       0.05    2003/06/23 generated, replaces 0.04
+ lib/DataPort/FileType/FormDB.pm                              0.02    2003/06/23 revised 0.01
+ t/DataPort/FormDB.d                                          0.03    2003/06/23 revised 0.02
+ t/DataPort/FormDB.pm                                         0.02    2003/06/23 revised 0.01
+ t/DataPort/FormDB.t                                          0.05    2003/06/23 revised 0.04
  t/DataPort/FormDB0.tdb                                       0.01    2003/06/08 unchanged
  t/DataPort/FormDBa2.tdb                                      0.01    2003/06/08 unchanged
  t/DataPort/FormDBa2.txt                                      0.01    2003/06/08 unchanged
@@ -313,14 +276,40 @@ consists of the following files:
 
 =head2 3.3 Changes
 
-Changed the name of "Test::Tester" to "Test::Tech".
-The name "Test::Tester" is taken on CPAN as an upload.
+Changes to the previous release are as follows:
 
-Broke up the STD support utilities "Test::TestUtil"
-into "File::FileUtil", "Test::STD::Scrub" and
-"Test::STD::STDutil"
+=over 4
 
-Theses changes impacted the test software.
+=item *
+
+Broke "DataPort::DataFile" away into its
+own module.
+
+=item *
+
+At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
+
+[snip]
+
+t/DataPort/FormDB......Can't declare scalar dereference in my at t/DataPort/FormDB.t line 147, near ") ="
+Execution of t/DataPort/FormDB.t aborted due to compilation errors.
+
+[snip]
+
+~~~~
+
+The below executed correctly under 
+Perl v5.6.1 MSWin32-x86-multi-thread, ActiveState build 631, binary but not
+under the Perl version 5.008 for solaris
+
+ my ($$record_p, $$fields_p) = ('','');
+
+Changed in t\DataPort\FormDB.t
+
+  my ($record,$fields) = ('','');
+  my ($$record_p, $$fields_p) = ($record,$fields);
+
+=back
 
 Changes to previous revisions are as follows:
 
@@ -390,6 +379,17 @@ resolve the prerequiste.
 Resolved a CPAN namespace conflict by changing the name
 of Test::Tester to Test::Tech.
 
+=item DataPort_FormDB 0.04
+
+Changed the name of "Test::Tester" to "Test::Tech".
+The name "Test::Tester" is taken on CPAN as an upload.
+
+Broke up the STD support utilities "Test::TestUtil"
+into "File::FileUtil", "Test::STD::Scrub" and
+"Test::STD::STDutil"
+
+Theses changes impacted the test software.
+
 =back
 
 =head2 3.4 Adaptation data.
@@ -416,6 +416,13 @@ test of this release.
 
 =head2 3.6 Installation instructions.
 
+Instructions for installation, installation tests
+and installation support are as follows:
+
+=over 4
+
+=item Installation Instructions.
+
 To installed the release file, use the CPAN module in the Perl release
 or the INSTALL.PL script at the following web site:
 
@@ -425,24 +432,36 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/DataPort-FormDB-0.04
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.04
+   http://www.softwarediamonds/packages/DataPort-FormDB-0.05
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.05
 
 
-=head2 3.6.1 Installation support.
+=item Prerequistes.
+
+'Test::Tech' => 1.08,
+'Test::STD::Scrub' => 1.07,
+'File::FileUtil' => 1.09,
+'DataPort::DataFile' => 0,
+
+=item Security, privacy, or safety precautions.
+
+None.
+
+=item Installation Tests.
+
+Most Perl installation software will run the following test script(s)
+as part of the installation:
+
+ t/DataPort/FormDB.t
+
+=item Installation support.
 
 If there are installation problems or questions with the installation
 contact
 
  603 882-0846 E<lt>support@SoftwareDiamonds.comE<gt>
 
-=head2 3.6.2 Installation Tests.
-
-Most Perl installation software will run the following test script(s)
-as part of the installation:
-
- t/DataPort/FormDB.t
- t/DataPort/DataFile.t
+=back
 
 =head2 3.7 Possible problems and known errors
 
@@ -470,6 +489,10 @@ extension for a Perl test script file
 
 Data Item Description
 
+=item DOD
+
+Department of Defense
+
 =item POD
 
 Plain Old Documentation
@@ -477,6 +500,10 @@ Plain Old Documentation
 =item SVD
 
 Software Version Description
+
+=item US
+
+United States
 
 =back
 
@@ -624,19 +651,20 @@ US DOD 2167A automation are as follows:
 __DATA__
 
 DISTNAME: DataPort-FormDB^
-VERSION : 0.04^
+VERSION : 0.05^
 REPOSITORY_DIR: packages^
 FREEZE: 1^
 
 PREVIOUS_DISTNAME:  ^
-REVISION: B^
-PREVIOUS_RELEASE: 0.03^
+REVISION: D^
+PREVIOUS_RELEASE: 0.04^
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 
 ABSTRACT: 
-Text Form Datatbase with advantages over CSV that has text separation
+Text Form Database with advantages over CSV that has text separation
 sequences with very simple escapes so the separation sequences never
-appear in the data.
+appear in the data. The text file resembles very closely hard copy
+forms.
 ^
 
 TITLE   : DataPort::FilteType::FormDB - Text Form Datatbase with advantages over CSV^
@@ -657,38 +685,62 @@ REPOSITORY:
 
 RESTRUCTURE:  ^
 
-CHANGE2CURRENT:
-return if $file =~ s=t/DataPort/DataFile=t/DataPort/DataFile/DataFile=;
-return if $file =~ s=t/DataPort/FormDB=t/DataPort/FormDB/FormDB=;
-^
+CHANGE2CURRENT:  ^
 
 AUTO_REVISE:
-lib/DataPort/*
-lib/DataPort/FileType/*
-t/DataPort/*
+lib/DataPort/FileType/FormDB.pm
+t/DataPort/FormDB*
 ^
 
 PREREQ_PM: 
-'File::FileUtil' => 0,
-'Test::Tech' => 0
+'Test::Tech' => 1.08,
+'Test::STD::Scrub' => 1.07,
+'File::FileUtil' => 1.09,
+'DataPort::DataFile' => 0,
 ^
 
 TESTS:
 t/DataPort/FormDB.t
-t/DataPort/DataFile.t
 ^
 
 EXE_FILES:  ^
 
-CHANGES: 
-Changed the name of "Test::Tester" to "Test::Tech".
-The name "Test::Tester" is taken on CPAN as an upload.
+CHANGES:
 
-Broke up the STD support utilities "Test::TestUtil"
-into "File::FileUtil", "Test::STD::Scrub" and
-"Test::STD::STDutil"
+Changes to the previous release are as follows:
 
-Theses changes impacted the test software.
+\=over 4
+
+\=item *
+
+Broke "DataPort::DataFile" away into its
+own module.
+
+\=item *
+
+At 08:39 AM 6/23/2003 +0000, Josts Smokehouse wrote:
+
+[snip]
+
+t/DataPort/FormDB......Can't declare scalar dereference in my at t/DataPort/FormDB.t line 147, near ") ="
+Execution of t/DataPort/FormDB.t aborted due to compilation errors.
+
+[snip]
+
+~~~~
+
+The below executed correctly under 
+Perl v5.6.1 MSWin32-x86-multi-thread, ActiveState build 631, binary but not
+under the Perl version 5.008 for solaris
+
+ my ($$record_p, $$fields_p) = ('','');
+
+Changed in t\DataPort\FormDB.t
+
+  my ($record,$fields) = ('','');
+  my ($$record_p, $$fields_p) = (\$record,\$fields);
+
+\=back
 
 Changes to previous revisions are as follows:
 
@@ -758,6 +810,17 @@ resolve the prerequiste.
 Resolved a CPAN namespace conflict by changing the name
 of Test::Tester to Test::Tech.
 
+\=item DataPort_FormDB 0.04
+
+Changed the name of "Test::Tester" to "Test::Tech".
+The name "Test::Tester" is taken on CPAN as an upload.
+
+Broke up the STD support utilities "Test::TestUtil"
+into "File::FileUtil", "Test::STD::Scrub" and
+"Test::STD::STDutil"
+
+Theses changes impacted the test software.
+
 \=back
 ^
 
@@ -771,14 +834,15 @@ utilize and track this release.
 CAPABILITIES:
 The system is the Perl programming language software.
 As established by the Perl referenced documents,
-program modules, such the "DataPort::*" modules, extend the Perl language.
+program modules, such the "DataPort::FileType::FormDB" module, extends the Perl language.
 
-The "DataPort::*" program modules accesses different types of
-data sources in different formats
-and streams them to a stanadard pure Perl API. 
+The "DataPort::FileType::FormDB" program module accesses a text database file
+in the very specific FormDB format
+and inherits generic database methods from the "DataPort::DataFile" module.
+The "DataPort::FileType::FormDB" program module is a data source for
+the "DataPort::DataFile" module.
 
-The feature data source is the text base FormDB. 
-The FormDB data source has improve flexability and
+The FormDB format has improve flexability and
 performance over other text base formats such as the Comma Separated
 Variable (CSV) format.
 
@@ -834,7 +898,7 @@ The dependency of the program modules in the US DOD STD2167A bundle is as follow
  File::FileUtil 
    Test::STD::Scrub
      Test::Tech
-        DataPort::FileType::FormDB DataPort::DataFile Test::STD::STDutil
+        DataPort::FileType::FormDB DataPort::DataFile DataPort::Maker Test::STD::Template
             Test::STDmaker ExtUtils::SVDmaker
 
 Note the 
@@ -933,6 +997,10 @@ extension for a Perl test script file
 
 Data Item Description
 
+\=item DOD
+
+Department of Defense
+
 \=item POD
 
 Plain Old Documentation
@@ -940,6 +1008,10 @@ Plain Old Documentation
 \=item SVD
 
 Software Version Description
+
+\=item US
+
+United States
 
 \=back
 ^

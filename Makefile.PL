@@ -17,7 +17,7 @@
 
 use ExtUtils::MakeMaker;
 
-my $tests = join ' ',unix2os('t/DataPort/FormDB.t','t/DataPort/DataFile.t');
+my $tests = join ' ',unix2os('t/DataPort/FormDB.t');
 my $exe;
 if( $exe ) {
   $exe = [join ' ',unix2os($exe)];
@@ -29,19 +29,22 @@ else {
 WriteMakefile(
     NAME => 'DataPort::FormDB',
     DISTNAME => 'DataPort-FormDB',
-    VERSION  => '0.04',
+    VERSION  => '0.05',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
-    PREREQ_PM => {'File::FileUtil' => 0,
-'Test::Tech' => 0},
+    PREREQ_PM => {'Test::Tech' => 1.08,
+'Test::STD::Scrub' => 1.07,
+'File::FileUtil' => 1.09,
+'DataPort::DataFile' => 0,},
     EXE_FILES => $exe,
 
     ($] >= 5.005 ?     
         (AUTHOR    => 'SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>',
-        ABSTRACT  => 'Text Form Datatbase with advantages over CSV that has text separation
+        ABSTRACT  => 'Text Form Database with advantages over CSV that has text separation
 sequences with very simple escapes so the separation sequences never
-appear in the data.', ) : ()),
+appear in the data. The text file resembles very closely hard copy
+forms.', ) : ()),
 );
 
 

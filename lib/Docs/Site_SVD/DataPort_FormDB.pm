@@ -10,23 +10,23 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.02';
-$DATE = '2003/06/12';
+$VERSION = '0.03';
+$DATE = '2003/06/13';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/DataPort_FormDB.pm' => [qw(0.02 2003/06/12), 'revised 0.01'],
-    'MANIFEST' => [qw(0.02 2003/06/12), 'generated, replaces 0.01'],
-    'Makefile.PL' => [qw(0.02 2003/06/12), 'generated, replaces 0.01'],
-    'README' => [qw(0.02 2003/06/12), 'generated, replaces 0.01'],
+    'lib/Docs/Site_SVD/DataPort_FormDB.pm' => [qw(0.03 2003/06/13), 'revised 0.02'],
+    'MANIFEST' => [qw(0.03 2003/06/13), 'generated, replaces 0.02'],
+    'Makefile.PL' => [qw(0.03 2003/06/13), 'generated, replaces 0.02'],
+    'README' => [qw(0.03 2003/06/13), 'generated, replaces 0.02'],
     'lib/DataPort/DataFile.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     'lib/DataPort/DataFileI.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     'lib/DataPort/FileType/FormDB.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile-STD.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile.d' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile.std' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile.t' => [qw(0.02 2003/06/12), 'revised 0.01'],
+    't/DataPort/DataFile.t' => [qw(0.03 2003/06/13), 'revised 0.02'],
     't/DataPort/DataFile0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -38,7 +38,7 @@ use vars qw(%INVENTORY);
     't/DataPort/FormDB-STD.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDB.d' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDB.std' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/FormDB.t' => [qw(0.02 2003/06/12), 'revised 0.01'],
+    't/DataPort/FormDB.t' => [qw(0.03 2003/06/13), 'revised 0.02'],
     't/DataPort/FormDB0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDBa2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDBa2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -76,11 +76,11 @@ use vars qw(%INVENTORY);
 
  Text Database API
 
- Revision: A
+ Revision: B
 
- Version: 0.02
+ Version: 0.03
 
- Date: 2003/06/12
+ Date: 2003/06/13
 
  Prepared for: General Public 
 
@@ -143,7 +143,7 @@ The dependency of the program modules in the US DOD STD2167A bundle is as follow
 
 =head2 1.3 Document overview.
 
-This document releases DataPort::FormDB version 0.02
+This document releases DataPort::FormDB version 0.03
 providing description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -161,8 +161,8 @@ system file specification.
 This document releases the file found
 at the following repository:
 
-   http://www.softwarediamonds/packages/DataPort-FormDB-0.02
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.02
+   http://www.softwarediamonds/packages/DataPort-FormDB-0.03
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.03
 
 
 =head2 3.1.2 Copyright.
@@ -223,17 +223,17 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.02    2003/06/12 revised 0.01
- MANIFEST                                                     0.02    2003/06/12 generated, replaces 0.01
- Makefile.PL                                                  0.02    2003/06/12 generated, replaces 0.01
- README                                                       0.02    2003/06/12 generated, replaces 0.01
+ lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.03    2003/06/13 revised 0.02
+ MANIFEST                                                     0.03    2003/06/13 generated, replaces 0.02
+ Makefile.PL                                                  0.03    2003/06/13 generated, replaces 0.02
+ README                                                       0.03    2003/06/13 generated, replaces 0.02
  lib/DataPort/DataFile.pm                                     0.01    2003/06/08 unchanged
  lib/DataPort/DataFileI.pm                                    0.01    2003/06/08 unchanged
  lib/DataPort/FileType/FormDB.pm                              0.01    2003/06/08 unchanged
  t/DataPort/DataFile-STD.pm                                   0.01    2003/06/08 unchanged
  t/DataPort/DataFile.d                                        0.01    2003/06/08 unchanged
  t/DataPort/DataFile.std                                      0.01    2003/06/08 unchanged
- t/DataPort/DataFile.t                                        0.02    2003/06/12 revised 0.01
+ t/DataPort/DataFile.t                                        0.03    2003/06/13 revised 0.02
  t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
@@ -245,7 +245,7 @@ consists of the following files:
  t/DataPort/FormDB-STD.pm                                     0.01    2003/06/08 unchanged
  t/DataPort/FormDB.d                                          0.01    2003/06/08 unchanged
  t/DataPort/FormDB.std                                        0.01    2003/06/08 unchanged
- t/DataPort/FormDB.t                                          0.02    2003/06/12 revised 0.01
+ t/DataPort/FormDB.t                                          0.03    2003/06/13 revised 0.02
  t/DataPort/FormDB0.tdb                                       0.01    2003/06/08 unchanged
  t/DataPort/FormDBa2.tdb                                      0.01    2003/06/08 unchanged
  t/DataPort/FormDBa2.txt                                      0.01    2003/06/08 unchanged
@@ -261,64 +261,8 @@ consists of the following files:
 
 =head2 3.3 Changes
 
-At 04:10 AM 6/9/2003 +0000, Josts Smokehouse wrote:
-
-Hello, Samson Monaco Tutankhamen! Thanks for uploading your works to CPAN.
-
-I noticed that the test suite seem to fail without these modules:
-
-STD::Tester
-
-As such, adding the prerequisite module(s) to 'PREREQ_PM' in your
-Makefile.PL should solve this problem.  For example:
-
-
- WriteMakefile(
-    AUTHOR      => 'Samson Monaco Tutankhamen (support@SoftwareDiamonds.com)',
-    ... # other information
-    PREREQ_PM   => {
-        'STD::Tester'   => '0', # or a minimum workable version
-    }
- );
-
-
-If you are interested in making a more flexible Makefile.PL that can
-probe for missing dependencies and install them, ExtUtils::AutoInstall
-at <http://search.cpan.org/search?dist=ExtUtils-AutoInstall> may be
-worth a look.
-
-Thanks! :-)
-
-~~~~~~~~~~~~~~~~~
-
-CORRECTIVE ACTION:
-
-The Makefile.PL is automatically generated by ExtUtils::SVDmaker
-from the data stored in the DataPort::FileType::FormDB format
-in the Docs::Site_SVD::DataPort-FormDB module.
-For now, in Docs::Site_SVD::DataPort-FormDB
-
-Changed 
-
- PREREQ_PM: ^
-
-to
-
- PREREQ_PM:
- 'Test::TestUtil' => 0,
- 'Test::Tester' => 0,
- ^
-
-and regenerated the distribution using ExtUtils::SVDmaker
-
-Uploaded Test::TestUtil and Test::Tester to CPAN in order to 
-resolve the prerequiste.
-
-For a future project, should follow up on Mr. Smokehouse's
-recommendation and investigate ExtUtils-AutoInstall.
-Hopefully ExtUtils::SVDmaker can be extended 
-by using ExtUtils::AutoInstall intact.
-Using the work of others can result in instant feature creep.
+Resolved a namespace conflict by changing the name
+of Test::Tester to Test::Tech.
 
 =head2 3.4 Adaptation data.
 
@@ -353,8 +297,8 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/DataPort-FormDB-0.02
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.02
+   http://www.softwarediamonds/packages/DataPort-FormDB-0.03
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.03
 
 
 =head2 3.6.1 Installation support.
@@ -435,17 +379,19 @@ Software Version Description
 
 __DATA__
 
+
+
 DISTNAME: DataPort-FormDB^
-VERSION : 0.02^
+VERSION : 0.03^
 REPOSITORY_DIR: packages^
-FREEZE: 1^
+FREEZE: 0^
 
 PREVIOUS_DISTNAME:  ^
-PREVIOUS_RELEASE: 0.01^
+REVISION: B^
+PREVIOUS_RELEASE: 0.02^
 CHANGE2CURRENT:  ^
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
 ABSTRACT: Text Data API^
-REVISION: A^
 TITLE   : Text Database API^
 END_USER: General Public^
 COPYRIGHT: copyright © 2003 Software Diamonds^
@@ -472,7 +418,7 @@ t/DataPort/*
 
 PREREQ_PM:
 'Test::TestUtil' => 0,
-'Test::Tester' => 0,
+'Test::Tech' => 0,
 ^
 
 TESTS:
@@ -482,64 +428,8 @@ t/DataPort/*.t
 EXE_FILES:  ^
 
 CHANGES: 
-At 04:10 AM 6/9/2003 +0000, Josts Smokehouse wrote:
-
-Hello, Samson Monaco Tutankhamen! Thanks for uploading your works to CPAN.
-
-I noticed that the test suite seem to fail without these modules:
-
-STD::Tester
-
-As such, adding the prerequisite module(s) to 'PREREQ_PM' in your
-Makefile.PL should solve this problem.  For example:
-
-
- WriteMakefile(
-    AUTHOR      => 'Samson Monaco Tutankhamen (support@SoftwareDiamonds.com)',
-    ... # other information
-    PREREQ_PM   => {
-        'STD::Tester'   => '0', # or a minimum workable version
-    }
- );
-
-
-If you are interested in making a more flexible Makefile.PL that can
-probe for missing dependencies and install them, ExtUtils::AutoInstall
-at <http://search.cpan.org/search?dist=ExtUtils-AutoInstall> may be
-worth a look.
-
-Thanks! :-)
-
-~~~~~~~~~~~~~~~~~
-
-CORRECTIVE ACTION:
-
-The Makefile.PL is automatically generated by ExtUtils::SVDmaker
-from the data stored in the DataPort::FileType::FormDB format
-in the Docs::Site_SVD::DataPort-FormDB module.
-For now, in Docs::Site_SVD::DataPort-FormDB
-
-Changed 
-
- PREREQ_PM: ^^
-
-to
-
- PREREQ_PM:
- 'Test::TestUtil' => 0,
- 'Test::Tester' => 0,
- ^^
-
-and regenerated the distribution using ExtUtils::SVDmaker
-
-Uploaded Test::TestUtil and Test::Tester to CPAN in order to 
-resolve the prerequiste.
-
-For a future project, should follow up on Mr. Smokehouse's
-recommendation and investigate ExtUtils-AutoInstall.
-Hopefully ExtUtils::SVDmaker can be extended 
-by using ExtUtils::AutoInstall intact.
-Using the work of others can result in instant feature creep.
+Resolved a namespace conflict by changing the name
+of Test::Tester to Test::Tech.
 ^
 
 DOCUMENT_OVERVIEW:

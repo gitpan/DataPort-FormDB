@@ -7,10 +7,10 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.02';   # automatically generated file
-$DATE = '2003/06/12';
+$VERSION = '0.03';   # automatically generated file
+$DATE = '2003/06/13';
 
-use Test::Tester;
+use Test::Tech;
 use Getopt::Long;
 use Cwd;
 use File::Spec;
@@ -53,9 +53,9 @@ BEGIN {
    GetOptions('log=s' => \$test_log);
 
    ########
-   # Start a test with a new tester
+   # Start a test with a new Tech
    #
-   $T = new Test::Tester( $test_log );
+   $T = new Test::Tech( $test_log );
 
    ########
    # Create the test plan by supplying the number of tests

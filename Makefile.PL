@@ -29,12 +29,12 @@ else {
 WriteMakefile(
     NAME => 'DataPort::FormDB',
     DISTNAME => 'DataPort-FormDB',
-    VERSION  => '0.02',
+    VERSION  => '0.03',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
     PREREQ_PM => {'Test::TestUtil' => 0,
-'Test::Tester' => 0,},
+'Test::Tech' => 0,},
     EXE_FILES => $exe,
 
     ($] >= 5.005 ?     

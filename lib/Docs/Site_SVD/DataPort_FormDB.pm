@@ -10,23 +10,22 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE $FILE );
-$VERSION = '0.03';
-$DATE = '2003/06/13';
+$VERSION = '0.04';
+$DATE = '2003/06/21';
 $FILE = __FILE__;
 
 use vars qw(%INVENTORY);
 %INVENTORY = (
-    'lib/Docs/Site_SVD/DataPort_FormDB.pm' => [qw(0.03 2003/06/13), 'revised 0.02'],
-    'MANIFEST' => [qw(0.03 2003/06/13), 'generated, replaces 0.02'],
-    'Makefile.PL' => [qw(0.03 2003/06/13), 'generated, replaces 0.02'],
-    'README' => [qw(0.03 2003/06/13), 'generated, replaces 0.02'],
+    'lib/Docs/Site_SVD/DataPort_FormDB.pm' => [qw(0.04 2003/06/21), 'revised 0.03'],
+    'MANIFEST' => [qw(0.04 2003/06/21), 'generated, replaces 0.03'],
+    'Makefile.PL' => [qw(0.04 2003/06/21), 'generated, replaces 0.03'],
+    'README' => [qw(0.04 2003/06/21), 'generated, replaces 0.03'],
     'lib/DataPort/DataFile.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     'lib/DataPort/DataFileI.pm' => [qw(0.01 2003/06/08), 'unchanged'],
     'lib/DataPort/FileType/FormDB.pm' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile-STD.pm' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile.d' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile.std' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/DataFile.t' => [qw(0.03 2003/06/13), 'revised 0.02'],
+    't/DataPort/DataFile.d' => [qw(0.02 2003/06/21), 'revised 0.01'],
+    't/DataPort/DataFile.pm' => [qw(0.01 2003/06/21), 'new'],
+    't/DataPort/DataFile.t' => [qw(0.04 2003/06/21), 'revised 0.03'],
     't/DataPort/DataFile0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -35,10 +34,9 @@ use vars qw(%INVENTORY);
     't/DataPort/DataFile4.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile4.txt' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/DataFile5.txt' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/FormDB-STD.pm' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/FormDB.d' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/FormDB.std' => [qw(0.01 2003/06/08), 'unchanged'],
-    't/DataPort/FormDB.t' => [qw(0.03 2003/06/13), 'revised 0.02'],
+    't/DataPort/FormDB.d' => [qw(0.02 2003/06/21), 'revised 0.01'],
+    't/DataPort/FormDB.pm' => [qw(0.01 2003/06/21), 'new'],
+    't/DataPort/FormDB.t' => [qw(0.04 2003/06/21), 'revised 0.03'],
     't/DataPort/FormDB0.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDBa2.tdb' => [qw(0.01 2003/06/08), 'unchanged'],
     't/DataPort/FormDBa2.txt' => [qw(0.01 2003/06/08), 'unchanged'],
@@ -74,13 +72,13 @@ use vars qw(%INVENTORY);
 
  for
 
- Text Database API
+ DataPort::FilteType::FormDB - Text Form Datatbase with advantages over CSV
 
  Revision: B
 
- Version: 0.03
+ Version: 0.04
 
- Date: 2003/06/13
+ Date: 2003/06/21
 
  Prepared for: General Public 
 
@@ -121,13 +119,60 @@ Plain Old Documentation (POD) that may be embedded in the language
 
 These features are established by the referenced documents.
 
-DataPort accesses different types of data sources in different formats
+The system is the Perl programming language software.
+As established by the Perl referenced documents,
+program modules, such the "DataPort::*" modules, extend the Perl language.
+
+The "DataPort::*" program modules accesses different types of
+data sources in different formats
 and streams them to a stanadard pure Perl API. 
 
 The feature data source is the text base FormDB. 
-The FormDB data source has improve flexiability and
+The FormDB data source has improve flexability and
 performance over other text base formats such as the Comma Separated
 Variable (CSV) format.
+
+The text format resembles as much as possible the standard hard copy forms.
+An example of a "L<DatatPort::FIleType::FormDB|DatatPort::FIleType::FormDB>
+record follows:
+
+ manhood length: ________ ^
+ time spent in big house: _________ ^
+
+ what drugs do you use:
+ _________ 
+ _________ 
+
+ ^
+
+ ~-~
+
+The ':' separates field names and field content.
+The '^' tags the end of a field and the '~-~' tags the
+end of the record.
+The separation sequences are escaped within the form
+by adding an extra character as follows:
+
+  sequence  escaped
+  --------  --------
+  ~-~       ~--~
+  ~--~      ~---~
+  ^         ^^
+  ^^        ^^^
+  :         :
+  ::        :::
+
+Since ~-~ never appears inside a record, Perl can very
+easily find the record separators just by ... well ...
+searching for it. The search for the end of field
+and end of field name are just a little bit more 
+complicated. Search for a  ':' or '^' all by itself.
+Escaping and unescaping is just adding one more
+':', '^', '-' or removing one of these characters.
+
+The FormDB record looks very much like a hard copy 
+form yet is very simple and straight forward for
+Perl or any other programming language to process.
 
 The DataPort::FileType::FormDB module is an integral part of the
 US DOD SDT2167A bundle of modules.
@@ -135,15 +180,24 @@ The data used by Test::STDmaker and ExtUtils::SVDmaker are
 stored in this format.
 
 The dependency of the program modules in the US DOD STD2167A bundle is as follows:
-
- Test::TestUtil
-     Test::Tester
-        DataPort::FormDB
+ 
+ File::FileUtil 
+   Test::STD::Scrub
+     Test::Tech
+        DataPort::FileType::FormDB DataPort::DataFile Test::STD::STDutil
             Test::STDmaker ExtUtils::SVDmaker
+
+Note the 
+L<File::FileUtil|File::FileUtil>, 
+L<Test::STD::STDutil|Test::STD::STDutil> 
+L<Test::STD::Scrub|Test::STD::Scrub> 
+program modules breaks up 
+the Test::TestUtil program module
+and Test::TestUtil has disappeared.
 
 =head2 1.3 Document overview.
 
-This document releases DataPort::FormDB version 0.03
+This document releases DataPort::FormDB version 0.04
 providing description of the inventory, installation
 instructions and other information necessary to
 utilize and track this release.
@@ -161,8 +215,8 @@ system file specification.
 This document releases the file found
 at the following repository:
 
-   http://www.softwarediamonds/packages/DataPort-FormDB-0.03
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.03
+   http://www.softwarediamonds/packages/DataPort-FormDB-0.04
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.04
 
 
 =head2 3.1.2 Copyright.
@@ -223,17 +277,16 @@ consists of the following files:
 
  file                                                         version date       comment
  ------------------------------------------------------------ ------- ---------- ------------------------
- lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.03    2003/06/13 revised 0.02
- MANIFEST                                                     0.03    2003/06/13 generated, replaces 0.02
- Makefile.PL                                                  0.03    2003/06/13 generated, replaces 0.02
- README                                                       0.03    2003/06/13 generated, replaces 0.02
+ lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.04    2003/06/21 revised 0.03
+ MANIFEST                                                     0.04    2003/06/21 generated, replaces 0.03
+ Makefile.PL                                                  0.04    2003/06/21 generated, replaces 0.03
+ README                                                       0.04    2003/06/21 generated, replaces 0.03
  lib/DataPort/DataFile.pm                                     0.01    2003/06/08 unchanged
  lib/DataPort/DataFileI.pm                                    0.01    2003/06/08 unchanged
  lib/DataPort/FileType/FormDB.pm                              0.01    2003/06/08 unchanged
- t/DataPort/DataFile-STD.pm                                   0.01    2003/06/08 unchanged
- t/DataPort/DataFile.d                                        0.01    2003/06/08 unchanged
- t/DataPort/DataFile.std                                      0.01    2003/06/08 unchanged
- t/DataPort/DataFile.t                                        0.03    2003/06/13 revised 0.02
+ t/DataPort/DataFile.d                                        0.02    2003/06/21 revised 0.01
+ t/DataPort/DataFile.pm                                       0.01    2003/06/21 new
+ t/DataPort/DataFile.t                                        0.04    2003/06/21 revised 0.03
  t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
@@ -242,10 +295,9 @@ consists of the following files:
  t/DataPort/DataFile4.tdb                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile4.txt                                     0.01    2003/06/08 unchanged
  t/DataPort/DataFile5.txt                                     0.01    2003/06/08 unchanged
- t/DataPort/FormDB-STD.pm                                     0.01    2003/06/08 unchanged
- t/DataPort/FormDB.d                                          0.01    2003/06/08 unchanged
- t/DataPort/FormDB.std                                        0.01    2003/06/08 unchanged
- t/DataPort/FormDB.t                                          0.03    2003/06/13 revised 0.02
+ t/DataPort/FormDB.d                                          0.02    2003/06/21 revised 0.01
+ t/DataPort/FormDB.pm                                         0.01    2003/06/21 new
+ t/DataPort/FormDB.t                                          0.04    2003/06/21 revised 0.03
  t/DataPort/FormDB0.tdb                                       0.01    2003/06/08 unchanged
  t/DataPort/FormDBa2.tdb                                      0.01    2003/06/08 unchanged
  t/DataPort/FormDBa2.txt                                      0.01    2003/06/08 unchanged
@@ -261,8 +313,84 @@ consists of the following files:
 
 =head2 3.3 Changes
 
-Resolved a namespace conflict by changing the name
+Changed the name of "Test::Tester" to "Test::Tech".
+The name "Test::Tester" is taken on CPAN as an upload.
+
+Broke up the STD support utilities "Test::TestUtil"
+into "File::FileUtil", "Test::STD::Scrub" and
+"Test::STD::STDutil"
+
+Theses changes impacted the test software.
+
+Changes to previous revisions are as follows:
+
+=over 4
+
+=item DataPort_FormDB 0.01
+
+Originated
+
+=item DataPort_FormDB 0.02
+
+At 04:10 AM 6/9/2003 +0000, Josts Smokehouse wrote:
+
+Hello, Samson Monaco Tutankhamen! Thanks for uploading your works to CPAN.
+
+I noticed that the test suite seem to fail without these modules:
+
+STD::Tester
+
+As such, adding the prerequisite module(s) to 'PREREQ_PM' in your
+Makefile.PL should solve this problem.  For example:
+
+
+ WriteMakefile(
+    AUTHOR      => 'Samson Monaco Tutankhamen (support@SoftwareDiamonds.com)',
+    ... # other information
+    PREREQ_PM   => {
+        'STD::Tester'   => '0', # or a minimum workable version
+    }
+ );
+
+
+If you are interested in making a more flexible Makefile.PL that can
+probe for missing dependencies and install them, ExtUtils::AutoInstall
+at <http://search.cpan.org/search?dist=ExtUtils-AutoInstall> may be
+worth a look.
+
+Thanks! :-)
+
+~~~~~~~~~~~~~~~~~
+
+CORRECTIVE ACTION:
+
+The Makefile.PL is automatically generated by ExtUtils::SVDmaker
+from the data stored in the DataPort::FileType::FormDB format
+in the Docs::Site_SVD::DataPort-FormDB module.
+For now, in Docs::Site_SVD::DataPort-FormDB
+
+Changed 
+
+ PREREQ_PM: ^
+
+to
+
+ PREREQ_PM:
+ 'Test::TestUtil' => 0,
+ 'Test::Tester' => 0,
+ ^
+
+and regenerated the distribution using ExtUtils::SVDmaker
+
+Uploaded Test::TestUtil and Test::Tester to CPAN in order to 
+resolve the prerequiste.
+
+=item DataPort_FormDB 0.03
+
+Resolved a CPAN namespace conflict by changing the name
 of Test::Tester to Test::Tech.
+
+=back
 
 =head2 3.4 Adaptation data.
 
@@ -297,8 +425,8 @@ Follow the instructions for the the chosen installation software.
 
 The distribution file is at the following respositories:
 
-   http://www.softwarediamonds/packages/DataPort-FormDB-0.03
-   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.03
+   http://www.softwarediamonds/packages/DataPort-FormDB-0.04
+   http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.04
 
 
 =head2 3.6.1 Installation support.
@@ -313,8 +441,8 @@ contact
 Most Perl installation software will run the following test script(s)
 as part of the installation:
 
- t/DataPort/DataFile.t
  t/DataPort/FormDB.t
+ t/DataPort/DataFile.t
 
 =head2 3.7 Possible problems and known errors
 
@@ -354,8 +482,124 @@ Software Version Description
 
 =head1 2.0 SEE ALSO
 
- L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
- L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
+Modules with end-user functional interfaces 
+relating to US DOD 2167A automation are
+as follows:
+
+=over 4
+
+=item L<Test::STDmaker|Test::STDmaker>
+
+=item L<ExtUtils::SVDmaker|ExtUtils::SVDmaker>
+
+=item L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
+
+=item L<DataPort::DataFile|DataPort::DataFile>
+
+=item L<Test::Tech|Test::Tech>
+
+=item L<Test|Test>
+
+=item L<Data::Dumper|Data::Dumper>
+
+=item L<Test::STD::Scrub|Test::STD::Scrub>
+
+=item L<Test::STD::STDutil|Test::STD::STDutil>
+
+=item L<File::FileUtil|File::FileUtil>
+
+=back
+
+The design modules for L<Test::STDmaker|Test::STDmaker>
+have no other conceivable use then to support the
+L<Test::STDmaker|Test::STDmaker> functional interface. 
+The  L<Test::STDmaker|Test::STDmaker>
+design module are as follows:
+
+=over 4
+
+=item L<Test::STD::Check|Test::STD::Check>
+
+=item L<Test::STD::FileGen|Test::STD::FileGen>
+
+=item L<Test::STD::STD2167|Test::STD::STD2167>
+
+=item L<Test::STD::STDgen|Test::STD::STDgen>
+
+=item L<Test::STDtype::Demo|Test::STDtype::Demo>
+
+=item L<Test::STDtype::STD|Test::STDtype::STD>
+
+=item L<Test::STDtype::Verify|Test::STDtype::Verify>
+
+=back
+
+
+Some US DOD 2167A Software Development Standard, DIDs and
+other related documents that complement the 
+US DOD 2167A automation are as follows:
+
+=over 4
+
+=item L<US DOD Software Development Standard|Docs::US_DOD::STD2167A>
+
+=item L<US DOD Specification Practices|Docs::US_DOD::STD490A>
+
+=item L<Computer Operation Manual (COM) DID|Docs::US_DOD::COM>
+
+=item L<Computer Programming Manual (CPM) DID)|Docs::US_DOD::CPM>
+
+=item L<Computer Resources Integrated Support Document (CRISD) DID|Docs::US_DOD::CRISD>
+
+=item L<Computer System Operator's Manual (CSOM) DID|Docs::US_DOD::CSOM>
+
+=item L<Database Design Description (DBDD) DID|Docs::US_DOD::DBDD>
+
+=item L<Engineering Change Proposal (ECP) DID|Docs::US_DOD::ECP>
+
+=item L<Firmware support Manual (FSM) DID|Docs::US_DOD::FSM>
+
+=item L<Interface Design Document (IDD) DID|Docs::US_DOD::IDD>
+
+=item L<Interface Requirements Specification (IRS) DID|Docs::US_DOD::IRS>
+
+=item L<Operation Concept Description (OCD) DID|Docs::US_DOD::OCD>
+
+=item L<Specification Change Notice (SCN) DID|Docs::US_DOD::SCN>
+
+=item L<Software Design Specification (SDD) DID|Docs::US_DOD::SDD>
+
+=item L<Software Development Plan (SDP) DID|Docs::US_DOD::SDP> 
+
+=item L<Software Input and Output Manual (SIOM) DID|Docs::US_DOD::SIOM>
+
+=item L<Software Installation Plan (SIP) DID|Docs::US_DOD::SIP>
+
+=item L<Software Programmer's Manual (SPM) DID|Docs::US_DOD::SPM>
+
+=item L<Software Product Specification (SPS) DID|Docs::US_DOD::SPS>
+
+=item L<Software Requirements Specification (SRS) DID|Docs::US_DOD::SRS>
+
+=item L<System or Segment Design Document (SSDD) DID|Docs::US_DOD::SSDD>
+
+=item L<System or Subsystem Specification (SSS) DID|Docs::US_DOD::SSS>
+
+=item L<Software Test Description (STD) DID|Docs::US_DOD::STD>
+
+=item L<Software Test Plan (STP) DID|Docs::US_DOD::STP>
+
+=item L<Software Test Report (STR) DID|Docs::US_DOD::STR>
+
+=item L<Software Transition Plan (STrP) DID|Docs::US_DOD::STrP>
+
+=item L<Software User Manual (SUM) DID|Docs::US_DOD::SUM>
+
+=item L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
+
+=item L<Version Description Document (VDD) DID|Docs::US_DOD::VDD>
+
+=back
 
 =for html
 <hr>
@@ -379,20 +623,23 @@ Software Version Description
 
 __DATA__
 
-
-
 DISTNAME: DataPort-FormDB^
-VERSION : 0.03^
+VERSION : 0.04^
 REPOSITORY_DIR: packages^
-FREEZE: 0^
+FREEZE: 1^
 
 PREVIOUS_DISTNAME:  ^
 REVISION: B^
-PREVIOUS_RELEASE: 0.02^
-CHANGE2CURRENT:  ^
+PREVIOUS_RELEASE: 0.03^
 AUTHOR  : SoftwareDiamonds.com E<lt>support@SoftwareDiamonds.comE<gt>^
-ABSTRACT: Text Data API^
-TITLE   : Text Database API^
+
+ABSTRACT: 
+Text Form Datatbase with advantages over CSV that has text separation
+sequences with very simple escapes so the separation sequences never
+appear in the data.
+^
+
+TITLE   : DataPort::FilteType::FormDB - Text Form Datatbase with advantages over CSV^
 END_USER: General Public^
 COPYRIGHT: copyright © 2003 Software Diamonds^
 CLASSIFICATION: NONE^
@@ -410,26 +657,108 @@ REPOSITORY:
 
 RESTRUCTURE:  ^
 
+CHANGE2CURRENT:
+return if $file =~ s=t/DataPort/DataFile=t/DataPort/DataFile/DataFile=;
+return if $file =~ s=t/DataPort/FormDB=t/DataPort/FormDB/FormDB=;
+^
+
 AUTO_REVISE:
 lib/DataPort/*
 lib/DataPort/FileType/*
 t/DataPort/*
 ^
 
-PREREQ_PM:
-'Test::TestUtil' => 0,
-'Test::Tech' => 0,
+PREREQ_PM: 
+'File::FileUtil' => 0,
+'Test::Tech' => 0
 ^
 
 TESTS:
-t/DataPort/*.t
+t/DataPort/FormDB.t
+t/DataPort/DataFile.t
 ^
 
 EXE_FILES:  ^
 
 CHANGES: 
-Resolved a namespace conflict by changing the name
+Changed the name of "Test::Tester" to "Test::Tech".
+The name "Test::Tester" is taken on CPAN as an upload.
+
+Broke up the STD support utilities "Test::TestUtil"
+into "File::FileUtil", "Test::STD::Scrub" and
+"Test::STD::STDutil"
+
+Theses changes impacted the test software.
+
+Changes to previous revisions are as follows:
+
+\=over 4
+
+\=item DataPort_FormDB 0.01
+
+Originated
+
+\=item DataPort_FormDB 0.02
+
+At 04:10 AM 6/9/2003 +0000, Josts Smokehouse wrote:
+
+Hello, Samson Monaco Tutankhamen! Thanks for uploading your works to CPAN.
+
+I noticed that the test suite seem to fail without these modules:
+
+STD::Tester
+
+As such, adding the prerequisite module(s) to 'PREREQ_PM' in your
+Makefile.PL should solve this problem.  For example:
+
+
+ WriteMakefile(
+    AUTHOR      => 'Samson Monaco Tutankhamen (support@SoftwareDiamonds.com)',
+    ... # other information
+    PREREQ_PM   => {
+        'STD::Tester'   => '0', # or a minimum workable version
+    }
+ );
+
+
+If you are interested in making a more flexible Makefile.PL that can
+probe for missing dependencies and install them, ExtUtils::AutoInstall
+at <http://search.cpan.org/search?dist=ExtUtils-AutoInstall> may be
+worth a look.
+
+Thanks! :-)
+
+~~~~~~~~~~~~~~~~~
+
+CORRECTIVE ACTION:
+
+The Makefile.PL is automatically generated by ExtUtils::SVDmaker
+from the data stored in the DataPort::FileType::FormDB format
+in the Docs::Site_SVD::DataPort-FormDB module.
+For now, in Docs::Site_SVD::DataPort-FormDB
+
+Changed 
+
+ PREREQ_PM: ^^
+
+to
+
+ PREREQ_PM:
+ 'Test::TestUtil' => 0,
+ 'Test::Tester' => 0,
+ ^^
+
+and regenerated the distribution using ExtUtils::SVDmaker
+
+Uploaded Test::TestUtil and Test::Tester to CPAN in order to 
+resolve the prerequiste.
+
+\=item DataPort_FormDB 0.03
+
+Resolved a CPAN namespace conflict by changing the name
 of Test::Tester to Test::Tech.
+
+\=back
 ^
 
 DOCUMENT_OVERVIEW:
@@ -440,13 +769,60 @@ utilize and track this release.
 ^
 
 CAPABILITIES:
-DataPort accesses different types of data sources in different formats
+The system is the Perl programming language software.
+As established by the Perl referenced documents,
+program modules, such the "DataPort::*" modules, extend the Perl language.
+
+The "DataPort::*" program modules accesses different types of
+data sources in different formats
 and streams them to a stanadard pure Perl API. 
 
 The feature data source is the text base FormDB. 
-The FormDB data source has improve flexiability and
+The FormDB data source has improve flexability and
 performance over other text base formats such as the Comma Separated
 Variable (CSV) format.
+
+The text format resembles as much as possible the standard hard copy forms.
+An example of a "L<DatatPort::FIleType::FormDB|DatatPort::FIleType::FormDB>
+record follows:
+
+ manhood length: ________ ^^
+ time spent in big house: _________ ^^
+
+ what drugs do you use:
+ _________ 
+ _________ 
+
+ ^^
+
+ ~--~
+
+The ':' separates field names and field content.
+The '^^' tags the end of a field and the '~--~' tags the
+end of the record.
+The separation sequences are escaped within the form
+by adding an extra character as follows:
+
+  sequence  escaped
+  --------  --------
+  ~--~       ~---~
+  ~---~      ~----~
+  ^^         ^^^
+  ^^^        ^^^^
+  :         :
+  ::        :::
+
+Since ~--~ never appears inside a record, Perl can very
+easily find the record separators just by ... well ...
+searching for it. The search for the end of field
+and end of field name are just a little bit more 
+complicated. Search for a  ':' or '^^' all by itself.
+Escaping and unescaping is just adding one more
+':', '^^', '-' or removing one of these characters.
+
+The FormDB record looks very much like a hard copy 
+form yet is very simple and straight forward for
+Perl or any other programming language to process.
 
 The DataPort::FileType::FormDB module is an integral part of the
 US DOD SDT2167A bundle of modules.
@@ -454,12 +830,20 @@ The data used by Test::STDmaker and ExtUtils::SVDmaker are
 stored in this format.
 
 The dependency of the program modules in the US DOD STD2167A bundle is as follows:
-
- Test::TestUtil
-     Test::Tester
-        DataPort::FormDB
+ 
+ File::FileUtil 
+   Test::STD::Scrub
+     Test::Tech
+        DataPort::FileType::FormDB DataPort::DataFile Test::STD::STDutil
             Test::STDmaker ExtUtils::SVDmaker
 
+Note the 
+L<File::FileUtil|File::FileUtil>, 
+L<Test::STD::STDutil|Test::STD::STDutil> 
+L<Test::STD::Scrub|Test::STD::Scrub> 
+program modules breaks up 
+the Test::TestUtil program module
+and Test::TestUtil has disappeared.
 ^
 
 LICENSE:
@@ -560,9 +944,127 @@ Software Version Description
 \=back
 ^
 
-SEE_ALSO: 
- L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
- L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
+SEE_ALSO:
+
+Modules with end-user functional interfaces 
+relating to US DOD 2167A automation are
+as follows:
+
+\=over 4
+
+\=item L<Test::STDmaker|Test::STDmaker>
+
+\=item L<ExtUtils::SVDmaker|ExtUtils::SVDmaker>
+
+\=item L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
+
+\=item L<DataPort::DataFile|DataPort::DataFile>
+
+\=item L<Test::Tech|Test::Tech>
+
+\=item L<Test|Test>
+
+\=item L<Data::Dumper|Data::Dumper>
+
+\=item L<Test::STD::Scrub|Test::STD::Scrub>
+
+\=item L<Test::STD::STDutil|Test::STD::STDutil>
+
+\=item L<File::FileUtil|File::FileUtil>
+
+\=back
+
+The design modules for L<Test::STDmaker|Test::STDmaker>
+have no other conceivable use then to support the
+L<Test::STDmaker|Test::STDmaker> functional interface. 
+The  L<Test::STDmaker|Test::STDmaker>
+design module are as follows:
+
+\=over 4
+
+\=item L<Test::STD::Check|Test::STD::Check>
+
+\=item L<Test::STD::FileGen|Test::STD::FileGen>
+
+\=item L<Test::STD::STD2167|Test::STD::STD2167>
+
+\=item L<Test::STD::STDgen|Test::STD::STDgen>
+
+\=item L<Test::STDtype::Demo|Test::STDtype::Demo>
+
+\=item L<Test::STDtype::STD|Test::STDtype::STD>
+
+\=item L<Test::STDtype::Verify|Test::STDtype::Verify>
+
+\=back
+
+
+Some US DOD 2167A Software Development Standard, DIDs and
+other related documents that complement the 
+US DOD 2167A automation are as follows:
+
+\=over 4
+
+\=item L<US DOD Software Development Standard|Docs::US_DOD::STD2167A>
+
+\=item L<US DOD Specification Practices|Docs::US_DOD::STD490A>
+
+\=item L<Computer Operation Manual (COM) DID|Docs::US_DOD::COM>
+
+\=item L<Computer Programming Manual (CPM) DID)|Docs::US_DOD::CPM>
+
+\=item L<Computer Resources Integrated Support Document (CRISD) DID|Docs::US_DOD::CRISD>
+
+\=item L<Computer System Operator's Manual (CSOM) DID|Docs::US_DOD::CSOM>
+
+\=item L<Database Design Description (DBDD) DID|Docs::US_DOD::DBDD>
+
+\=item L<Engineering Change Proposal (ECP) DID|Docs::US_DOD::ECP>
+
+\=item L<Firmware support Manual (FSM) DID|Docs::US_DOD::FSM>
+
+\=item L<Interface Design Document (IDD) DID|Docs::US_DOD::IDD>
+
+\=item L<Interface Requirements Specification (IRS) DID|Docs::US_DOD::IRS>
+
+\=item L<Operation Concept Description (OCD) DID|Docs::US_DOD::OCD>
+
+\=item L<Specification Change Notice (SCN) DID|Docs::US_DOD::SCN>
+
+\=item L<Software Design Specification (SDD) DID|Docs::US_DOD::SDD>
+
+\=item L<Software Development Plan (SDP) DID|Docs::US_DOD::SDP> 
+
+\=item L<Software Input and Output Manual (SIOM) DID|Docs::US_DOD::SIOM>
+
+\=item L<Software Installation Plan (SIP) DID|Docs::US_DOD::SIP>
+
+\=item L<Software Programmer's Manual (SPM) DID|Docs::US_DOD::SPM>
+
+\=item L<Software Product Specification (SPS) DID|Docs::US_DOD::SPS>
+
+\=item L<Software Requirements Specification (SRS) DID|Docs::US_DOD::SRS>
+
+\=item L<System or Segment Design Document (SSDD) DID|Docs::US_DOD::SSDD>
+
+\=item L<System or Subsystem Specification (SSS) DID|Docs::US_DOD::SSS>
+
+\=item L<Software Test Description (STD) DID|Docs::US_DOD::STD>
+
+\=item L<Software Test Plan (STP) DID|Docs::US_DOD::STP>
+
+\=item L<Software Test Report (STR) DID|Docs::US_DOD::STR>
+
+\=item L<Software Transition Plan (STrP) DID|Docs::US_DOD::STrP>
+
+\=item L<Software User Manual (SUM) DID|Docs::US_DOD::SUM>
+
+\=item L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
+
+\=item L<Version Description Document (VDD) DID|Docs::US_DOD::VDD>
+
+\=back
+
 ^
 
 HTML:

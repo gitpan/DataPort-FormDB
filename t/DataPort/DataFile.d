@@ -7,27 +7,27 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.01';   # automatically generated file
-$DATE = '2003/06/08';
+$VERSION = '0.02';   # automatically generated file
+$DATE = '2003/06/21';
 
 
 ##### Demonstration Script ####
 #
 # Name: DataFile.d
 #
-# UUT: DataCop::DataFile
+# UUT: DataPort::DataFile
 #
-# The module STD::TestGen generated this demo script from the contents of
+# The module Test::STDmaker generated this demo script from the contents of
 #
-# DataCop/DataFile.std 
+# DataPort::DataFile::DataFile 
 #
 # Don't edit this test script file, edit instead
 #
-# DataCop/DataFile.std
+# DataPort::DataFile::DataFile
 #
 #	ANY CHANGES MADE HERE TO THIS SCRIPT FILE WILL BE LOST
 #
-#       the next time STD::TestGen generates this script file.
+#       the next time Test::STDmaker generates this script file.
 #
 #
 
@@ -35,25 +35,12 @@ $DATE = '2003/06/08';
 #
 # The working directory is the directory of the generated file
 #
-use vars qw($__restore_dir__ $T);
+use vars qw($__restore_dir__);
 
 BEGIN {
     use Cwd;
     use File::Spec;
-    use STD::Tester;
-    use Getopt::Long;
-
-    ##########
-    # Pick up a output redirection file and tests to skip
-    # from the command line.
-    #
-    my $test_log = '';
-    GetOptions('log=s' => \$test_log);
- 
-    ########
-    # Start a demo with a new tester
-    #
-    $T = new STD::Tester( $test_log );
+    use Test::Tech qw(tech_config plan demo);
 
     ########
     # Working directory is that of the script file
@@ -90,81 +77,78 @@ follow on the next lines. For example,
 
 MSG
 
-$T->demo(   
-"my\ \$errors\ \=\ \$T\-\>load_package\(\ \'DataCop\:\:DataFileI\'\ \)"); # typed in command           
-my $errors = $T->load_package( 'DataCop::DataFileI' ); # execution
+demo( "\ \ \ \ use\ File\:\:FileUtil\;\
+\ \ \ \ my\ \$fu\ \=\ \'File\:\:FileUtil\'\;"); # typed in command           
+          use File::FileUtil;
+    my $fu = 'File::FileUtil';; # execution
 
-$T->demo(   
-"\$errors", # typed in command           
-$errors # execution
+demo( "my\ \$errors\ \=\ \$fu\-\>load_package\(\ \'DataPort\:\:DataFileI\'\ \)"); # typed in command           
+      my $errors = $fu->load_package( 'DataPort::DataFileI' ); # execution
+
+demo( "\$errors", # typed in command           
+      $errors # execution
 ) unless     $loaded; # condition for execution                            
 
-$T->demo(   
-"\$T\-\>fin\(\ \'DataFile0\.tdb\'\ \)", # typed in command           
-$T->fin( 'DataFile0.tdb' )); # execution
+demo( "\$fu\-\>fin\(\ \'DataFile0\.tdb\'\ \)", # typed in command           
+      $fu->fin( 'DataFile0.tdb' )); # execution
 
 
-$T->demo(   
-"\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
+demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \
 \ \ \ \ my\ \$record\;\
 \ \ \ \ my\ \(\$array_p\,\ \$record_p\)\ \=\ \(\[\]\,\ \\\$record\)\;\
-\ \ \ \ my\ \$dbh\ \=\ new\ DataCop\:\:DataFileI\(flag\ \=\>\ \'\<\'\,\ file\ \=\>\ \'DataFile0\.tdb\'\,\
+\ \ \ \ my\ \$dbh\ \=\ new\ DataPort\:\:DataFileI\(flag\ \=\>\ \'\<\'\,\ file\ \=\>\ \'DataFile0\.tdb\'\,\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ option1\ \=\>\ \'1\'\,\ option2\ \=\>\ \'2\'\ \)\;\
 \
 \ \ \ \ while\(\ \$dbh\-\>get\(\$array_p\,\ \$record_p\)\ \)\ \{\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}"); # typed in command           
-    unlink 'DataFile1.txt';
+          unlink 'DataFile1.txt';
 
     my $record;
     my ($array_p, $record_p) = ([], \$record);
-    my $dbh = new DataCop::DataFileI(flag => '<', file => 'DataFile0.tdb',
+    my $dbh = new DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
                option1 => '1', option2 => '2' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $T->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-        $T->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-$T->fin('DataFile1.txt')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $fu->fin('DataFile1.txt')); # execution
 
 
-$T->demo(   
-"\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
+demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ \$dbh\-\>finish\(\)\;\
 \
-\ \ \ \ \$dbh\ \=\ new\ DataCop\:\:DataFileI\(flag\ \=\>\ \'\<\'\,\ file\ \=\>\ \'DataFile0\.tdb\'\,\
+\ \ \ \ \$dbh\ \=\ new\ DataPort\:\:DataFileI\(flag\ \=\>\ \'\<\'\,\ file\ \=\>\ \'DataFile0\.tdb\'\,\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ option3\ \=\>\ \'3\'\,\ option4\ \=\>\ \'4\'\,\ \ option5\ \=\>\ \'5\'\ \)\;\
 \
 \ \ \ \ while\(\ \$dbh\-\>get\(\$array_p\)\ \)\ \{\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
-    unlink 'DataFile1.txt';
+          unlink 'DataFile1.txt';
     $dbh->finish();
 
-    $dbh = new DataCop::DataFileI(flag => '<', file => 'DataFile0.tdb',
+    $dbh = new DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
                option3 => '3', option4 => '4',  option5 => '5' );
 
     while( $dbh->get($array_p) ) {
-        $T->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }
     $dbh->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-$T->fin('DataFile1.txt')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $fu->fin('DataFile1.txt')); # execution
 
 
-$T->demo(   
-"\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
+demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ unlink\ \'DataFile1\.tdb\'\;\
 \
-\ \ \ \ \$dbh\ \=\ new\ DataCop\:\:DataFileI\(flag\ \=\>\ \'\>\'\,\ file\ \=\>\ \'DataFile1\.tdb\'\,\
+\ \ \ \ \$dbh\ \=\ new\ DataPort\:\:DataFileI\(flag\ \=\>\ \'\>\'\,\ file\ \=\>\ \'DataFile1\.tdb\'\,\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ option6\ \=\>\ \'6\'\,\ option7\ \=\>\ \'7\'\ \)\;\
 \
 \ \ \ \ my\ \@db\ \=\ \(\ \[\ \'name1\'\,\'data1\'\,\'name2\'\,\'data2\'\]\,\ \[\ \'name3\'\,\ \'data3\'\,\ \'name4\'\,\ \'data4\'\ \]\ \)\;\ \ \
@@ -172,13 +156,13 @@ $T->demo(
 \ \ \ \ foreach\ \$array_p\ \(\@db\)\ \{\
 \ \ \ \ \ \ \ \ \$record\ \=\ \'\'\;\ \
 \ \ \ \ \ \ \ \ \$dbh\-\>put\(\$array_p\,\ \$record_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
-    unlink 'DataFile1.txt';
+          unlink 'DataFile1.txt';
     unlink 'DataFile1.tdb';
 
-    $dbh = new DataCop::DataFileI(flag => '>', file => 'DataFile1.tdb',
+    $dbh = new DataPort::DataFileI(flag => '>', file => 'DataFile1.tdb',
                option6 => '6', option7 => '7' );
 
     my @db = ( [ 'name1','data1','name2','data2'], [ 'name3', 'data3', 'name4', 'data4' ] );  
@@ -186,26 +170,23 @@ $T->demo(
     foreach $array_p (@db) {
         $record = ''; 
         $dbh->put($array_p, $record_p);
-        $T->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $fu->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
     }
     $dbh->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
-$T->fin('DataFile1.tdb')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
+      $fu->fin('DataFile1.tdb')); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-$T->fin('DataFile1.txt')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $fu->fin('DataFile1.txt')); # execution
 
 
-$T->demo(   
-"\ \ \ \ \$dbh\-\>finish\(\)\;\
+demo( "\ \ \ \ \$dbh\-\>finish\(\)\;\
 \ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ unlink\ \'DataFile1\.tdb\'\;\
 \
-\ \ \ \ \$dbh\ \=\ new\ DataCop\:\:DataFileI\(flag\ \=\>\ \'\>\'\,\ file\ \=\>\ \'DataFile1\.tdb\'\,\
+\ \ \ \ \$dbh\ \=\ new\ DataPort\:\:DataFileI\(flag\ \=\>\ \'\>\'\,\ file\ \=\>\ \'DataFile1\.tdb\'\,\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ option8\ \=\>\ \'8\'\ \)\;\
 \
 \ \ \ \ \@db\ \=\ \(\ \[\ \'name5\'\,\'data5\'\,\'name6\'\,\'data6\'\]\,\ \[\ \'name7\'\,\ \'data7\'\ \]\ \)\;\ \ \
@@ -214,11 +195,11 @@ $T->demo(
 \ \ \ \ \ \ \ \ \$dbh\-\>put\(\$array_p\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
-    $dbh->finish();
+          $dbh->finish();
     unlink 'DataFile1.txt';
     unlink 'DataFile1.tdb';
 
-    $dbh = new DataCop::DataFileI(flag => '>', file => 'DataFile1.tdb',
+    $dbh = new DataPort::DataFileI(flag => '>', file => 'DataFile1.tdb',
                option8 => '8' );
 
     @db = ( [ 'name5','data5','name6','data6'], [ 'name7', 'data7' ] );  
@@ -228,16 +209,14 @@ $T->demo(
     }
     $dbh->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
-$T->fin('DataFile1.tdb')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
+      $fu->fin('DataFile1.tdb')); # execution
 
 
-$T->demo(   
-"\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
+demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ unlink\ \'DataFile1\.tdb\'\;\
 \
-\ \ \ \ \$dbh\ \=\ new\ DataCop\:\:DataFileI\(flag\ \=\>\ \'\>\'\,\ file\ \=\>\ \'DataFile1\.tdb\'\,\
+\ \ \ \ \$dbh\ \=\ new\ DataPort\:\:DataFileI\(flag\ \=\>\ \'\>\'\,\ file\ \=\>\ \'DataFile1\.tdb\'\,\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ binary\ \=\>\ 1\,\ option9\ \=\>\ \'9\'\ \)\;\
 \
 \ \ \ \ \@db\ \=\ \(\ \[\ \'name5\'\,\'data5\'\,\'name6\'\,\'data6\'\]\,\ \[\ \'name7\'\,\ \'data7\'\ \]\ \)\;\ \ \
@@ -246,10 +225,10 @@ $T->demo(
 \ \ \ \ \ \ \ \ \$dbh\-\>put\(\$array_p\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
-    unlink 'DataFile1.txt';
+          unlink 'DataFile1.txt';
     unlink 'DataFile1.tdb';
 
-    $dbh = new DataCop::DataFileI(flag => '>', file => 'DataFile1.tdb',
+    $dbh = new DataPort::DataFileI(flag => '>', file => 'DataFile1.tdb',
               binary => 1, option9 => '9' );
 
     @db = ( [ 'name5','data5','name6','data6'], [ 'name7', 'data7' ] );  
@@ -259,53 +238,46 @@ $T->demo(
     }
     $dbh->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
-$T->fin('DataFile1.tdb')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.tdb\'\)", # typed in command           
+      $fu->fin('DataFile1.tdb')); # execution
 
 
-$T->demo(   
-"\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
+demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ unlink\ \'DataFile1\.tdb\'\;\
 \
-\ \ \ \ \$dbh\ \=\ new\ DataCop\:\:DataFileI\(flag\ \=\>\ \'\<\'\,\ file\ \=\>\ \'DataFile0\.tdb\'\,\
+\ \ \ \ \$dbh\ \=\ new\ DataPort\:\:DataFileI\(flag\ \=\>\ \'\<\'\,\ file\ \=\>\ \'DataFile0\.tdb\'\,\
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ binary\ \=\>\ 1\,\ option10\ \=\>\ \'10\'\,\ option11\ \=\>\ \'11\'\ \)\;\
 \
 \ \ \ \ while\(\ \$dbh\-\>get\(\$array_p\,\ \$record_p\)\ \)\ \{\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ \$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'DataFile1\.txt\'\,\ join\(\"\\n\+\-\-\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \}\
 \ \ \ \ \$dbh\-\>finish\(\)\;"); # typed in command           
-    unlink 'DataFile1.txt';
+          unlink 'DataFile1.txt';
     unlink 'DataFile1.tdb';
 
-    $dbh = new DataCop::DataFileI(flag => '<', file => 'DataFile0.tdb',
+    $dbh = new DataPort::DataFileI(flag => '<', file => 'DataFile0.tdb',
                binary => 1, option10 => '10', option11 => '11' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $T->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-        $T->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }
     $dbh->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
-$T->fin('DataFile1.txt')); # execution
+demo( "\$fu\-\>fin\(\'DataFile1\.txt\'\)", # typed in command           
+      $fu->fin('DataFile1.txt')); # execution
 
 
-$T->demo(   
-"\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
+demo( "\ \ \ \ unlink\ \'DataFile1\.txt\'\;\
 \ \ \ \ unlink\ \'DataFile1\.tdb\'\;"); # typed in command           
-    unlink 'DataFile1.txt';
+          unlink 'DataFile1.txt';
     unlink 'DataFile1.tdb';; # execution
-
-
-$T->finish();
 
 
 =head1 NAME
 
-DataFile.d - demostration script for DataCop::DataFile
+DataFile.d - demostration script for DataPort::DataFile
 
 =head1 SYNOPSIS
 
@@ -359,22 +331,6 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE.
-
-=for html
-<hr>
-<p><br>
-<!-- BLK ID="NOTICE" -->
-<!-- /BLK -->
-<p><br>
-<!-- BLK ID="OPT-IN" -->
-<!-- /BLK -->
-<p><br>
-<!-- BLK ID="EMAIL" -->
-<!-- /BLK -->
-<p><br>
-<!-- BLK ID="LOG_CGI" -->
-<!-- /BLK -->
-<p><br>
 
 ## end of test script file ##
 

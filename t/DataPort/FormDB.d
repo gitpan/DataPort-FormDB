@@ -7,8 +7,8 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.01';   # automatically generated file
-$DATE = '2003/06/08';
+$VERSION = '0.02';   # automatically generated file
+$DATE = '2003/06/21';
 
 
 ##### Demonstration Script ####
@@ -17,17 +17,17 @@ $DATE = '2003/06/08';
 #
 # UUT: DataPort::FileType::FormDB
 #
-# The module STD::TestGen generated this demo script from the contents of
+# The module Test::STDmaker generated this demo script from the contents of
 #
-# DataPort/FormDB.std 
+# t::DataPort::FormDB 
 #
 # Don't edit this test script file, edit instead
 #
-# DataPort/FormDB.std
+# t::DataPort::FormDB
 #
 #	ANY CHANGES MADE HERE TO THIS SCRIPT FILE WILL BE LOST
 #
-#       the next time STD::TestGen generates this script file.
+#       the next time Test::STDmaker generates this script file.
 #
 #
 
@@ -35,25 +35,12 @@ $DATE = '2003/06/08';
 #
 # The working directory is the directory of the generated file
 #
-use vars qw($__restore_dir__ $T);
+use vars qw($__restore_dir__);
 
 BEGIN {
     use Cwd;
     use File::Spec;
-    use STD::Tester;
-    use Getopt::Long;
-
-    ##########
-    # Pick up a output redirection file and tests to skip
-    # from the command line.
-    #
-    my $test_log = '';
-    GetOptions('log=s' => \$test_log);
- 
-    ########
-    # Start a demo with a new tester
-    #
-    $T = new STD::Tester( $test_log );
+    use Test::Tech qw(tech_config plan demo);
 
     ########
     # Working directory is that of the script file
@@ -90,22 +77,23 @@ follow on the next lines. For example,
 
 MSG
 
-$T->demo(   
-"my\ \$errors\ \=\ \$T\-\>load_package\(\ \'DataPort\:\:FileType\:\:FormDB\'\ \)"); # typed in command           
-my $errors = $T->load_package( 'DataPort::FileType::FormDB' ); # execution
+demo( "\ \ \ \ use\ File\:\:FileUtil\;\
+\ \ \ \ my\ \$fu\ \=\ \'File\:\:FileUtil\'\;"); # typed in command           
+          use File::FileUtil;
+    my $fu = 'File::FileUtil';; # execution
 
-$T->demo(   
-"\$errors", # typed in command           
-$errors # execution
+demo( "my\ \$errors\ \=\ \$fu\-\>load_package\(\ \'DataPort\:\:FileType\:\:FormDB\'\ \)"); # typed in command           
+      my $errors = $fu->load_package( 'DataPort::FileType::FormDB' ); # execution
+
+demo( "\$errors", # typed in command           
+      $errors # execution
 ) unless     $loaded; # condition for execution                            
 
-$T->demo(   
-"\$T\-\>fin\(\ \'FormDB0\.tdb\'\ \)", # typed in command           
-$T->fin( 'FormDB0.tdb' )); # execution
+demo( "\$fu\-\>fin\(\ \'FormDB0\.tdb\'\ \)", # typed in command           
+      $fu->fin( 'FormDB0.tdb' )); # execution
 
 
-$T->demo(   
-"\ \ \ \ \#\#\#\#\#\#\#\
+demo( "\ \ \ \ \#\#\#\#\#\#\#\
 \ \ \ \ \#\ Test\ the\ lenient\ format\.\
 \ \ \ \ \#\
 \ \ \ \ unlink\ \'FormDBa1\.tdb\'\;\
@@ -119,9 +107,9 @@ $T->demo(
 \ \ \ \ my\ \$array_p\ \=\ \[\]\;\
 \ \ \ \ while\(\ \$dbh_in\-\>get_record\(\$record_p\)\ \)\ \{\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_record\(\$record_p\,\$fields_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'FormDBr1\.txt\'\,\$\$fields_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\ \)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'FormDBr1\.txt\'\,\$\$fields_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\ \)\;\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_field\(\$fields_p\,\ \$array_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'FormDBa1\.txt\'\,join\(\"\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'FormDBa1\.txt\'\,join\(\"\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \ \ \ \ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\'\'\,\'\'\)\;\
 \ \ \ \ \ \ \ \ \$dbh_out\-\>encode_field\(\ \$array_p\,\ \$fields_p\ \)\;\
 \ \ \ \ \ \ \ \ \$dbh_out\-\>encode_record\(\ \$fields_p\,\ \$record_p\)\;\
@@ -131,7 +119,7 @@ $T->demo(
 \
 \ \ \ \ \$dbh_out\-\>finish\(\)\;\
 \ \ \ \ \$dbh_in\-\>finish\(\)\;"); # typed in command           
-    #######
+          #######
     # Test the lenient format.
     #
     unlink 'FormDBa1.tdb';
@@ -145,9 +133,9 @@ $T->demo(
     my $array_p = [];
     while( $dbh_in->get_record($record_p) ) {
         $dbh_in->decode_record($record_p,$fields_p);
-        $T->fout( 'FormDBr1.txt',$$fields_p . "\n~-~\n", {append=>1} );
+        $fu->fout( 'FormDBr1.txt',$$fields_p . "\n~-~\n", {append=>1} );
         $dbh_in->decode_field($fields_p, $array_p);
-        $T->fout( 'FormDBa1.txt',join("\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'FormDBa1.txt',join("\n",@$array_p) . "\n~-~\n", {append=>1});
         ($$record_p, $$fields_p) = ('','');
         $dbh_out->encode_field( $array_p, $fields_p );
         $dbh_out->encode_record( $fields_p, $record_p);
@@ -158,28 +146,23 @@ $T->demo(
     $dbh_out->finish();
     $dbh_in->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBr1\.txt\'\)", # typed in command           
-$T->fin('FormDBr1.txt')); # execution
+demo( "\$fu\-\>fin\(\'FormDBr1\.txt\'\)", # typed in command           
+      $fu->fin('FormDBr1.txt')); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBa1\.txt\'\)", # typed in command           
-$T->fin('FormDBa1.txt')); # execution
+demo( "\$fu\-\>fin\(\'FormDBa1\.txt\'\)", # typed in command           
+      $fu->fin('FormDBa1.txt')); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBa1\.tdb\'\)", # typed in command           
-$T->fin('FormDBa1.tdb')); # execution
+demo( "\$fu\-\>fin\(\'FormDBa1\.tdb\'\)", # typed in command           
+      $fu->fin('FormDBa1.tdb')); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\ \'FormDBs0\.tdb\'\ \)", # typed in command           
-$T->fin( 'FormDBs0.tdb' )); # execution
+demo( "\$fu\-\>fin\(\ \'FormDBs0\.tdb\'\ \)", # typed in command           
+      $fu->fin( 'FormDBs0.tdb' )); # execution
 
 
-$T->demo(   
-"\ \ \ \ \#\#\#\#\#\#\#\
+demo( "\ \ \ \ \#\#\#\#\#\#\#\
 \ \ \ \ \#\ Test\ the\ strict\ format\.\
 \ \ \ \ \#\
 \ \ \ \ unlink\ \'FormDBa1\.tdb\'\;\
@@ -192,9 +175,9 @@ $T->demo(
 \ \ \ \ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\'\'\,\'\'\)\;\
 \ \ \ \ while\(\ \$dbh_in\-\>get_record\(\$record_p\)\ \)\ \{\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_record\(\$record_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'FormDBr1\.txt\'\,\$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\ \)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'FormDBr1\.txt\'\,\$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\ \)\;\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_field\(\$record_p\,\ \$array_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'FormDBa1\.txt\'\,join\(\"\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'FormDBa1\.txt\'\,join\(\"\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \ \ \ \ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\'\'\,\'\'\)\;\
 \ \ \ \ \ \ \ \ \$dbh_out\-\>encode_field\(\ \$array_p\,\ \$record_p\ \)\;\
 \ \ \ \ \ \ \ \ \$dbh_out\-\>encode_record\(\$record_p\)\;\
@@ -205,7 +188,7 @@ $T->demo(
 \
 \ \ \ \ \$dbh_out\-\>finish\(\)\;\
 \ \ \ \ \$dbh_in\-\>finish\(\)\;"); # typed in command           
-    #######
+          #######
     # Test the strict format.
     #
     unlink 'FormDBa1.tdb';
@@ -218,9 +201,9 @@ $T->demo(
     ($$record_p, $$fields_p) = ('','');
     while( $dbh_in->get_record($record_p) ) {
         $dbh_in->decode_record($record_p);
-        $T->fout( 'FormDBr1.txt',$$record_p . "\n~-~\n", {append=>1} );
+        $fu->fout( 'FormDBr1.txt',$$record_p . "\n~-~\n", {append=>1} );
         $dbh_in->decode_field($record_p, $array_p);
-        $T->fout( 'FormDBa1.txt',join("\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'FormDBa1.txt',join("\n",@$array_p) . "\n~-~\n", {append=>1});
         ($$record_p, $$fields_p) = ('','');
         $dbh_out->encode_field( $array_p, $record_p );
         $dbh_out->encode_record($record_p);
@@ -232,23 +215,19 @@ $T->demo(
     $dbh_out->finish();
     $dbh_in->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBr1\.txt\'\)", # typed in command           
-$T->fin('FormDBr1.txt')); # execution
+demo( "\$fu\-\>fin\(\'FormDBr1\.txt\'\)", # typed in command           
+      $fu->fin('FormDBr1.txt')); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBa1\.txt\'\)", # typed in command           
-$T->fin('FormDBa1.txt')); # execution
+demo( "\$fu\-\>fin\(\'FormDBa1\.txt\'\)", # typed in command           
+      $fu->fin('FormDBa1.txt')); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBa1\.tdb\'\)", # typed in command           
-$T->fin('FormDBa1.tdb')); # execution
+demo( "\$fu\-\>fin\(\'FormDBa1\.tdb\'\)", # typed in command           
+      $fu->fin('FormDBa1.tdb')); # execution
 
 
-$T->demo(   
-"\ \ \ \ \#\#\#\#\#\#\#\
+demo( "\ \ \ \ \#\#\#\#\#\#\#\
 \ \ \ \ \#\ Test\ the\ strict\ binary\ format\.\
 \ \ \ \ \#\
 \ \ \ \ unlink\ \'FormDBa1\.tdb\'\;\
@@ -262,9 +241,9 @@ $T->demo(
 \ \ \ \ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\'\'\,\'\'\)\;\
 \ \ \ \ while\(\ \$dbh_in\-\>get_record\(\$record_p\)\ \)\ \{\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_record\(\$record_p\,\ \$record_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'FormDBr1\.txt\'\,\$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\ \)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'FormDBr1\.txt\'\,\$\$record_p\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\ \)\;\
 \ \ \ \ \ \ \ \ \$dbh_in\-\>decode_field\(\$record_p\,\ \$array_p\)\;\
-\ \ \ \ \ \ \ \ \$T\-\>fout\(\ \'FormDBa1\.txt\'\,join\(\"\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
+\ \ \ \ \ \ \ \ \$fu\-\>fout\(\ \'FormDBa1\.txt\'\,join\(\"\\n\"\,\@\$array_p\)\ \.\ \"\\n\~\-\~\\n\"\,\ \{append\=\>1\}\)\;\
 \ \ \ \ \ \ \ \ \(\$\$record_p\,\ \$\$fields_p\)\ \=\ \(\'\'\,\'\'\)\;\
 \ \ \ \ \ \ \ \ \$dbh_out\-\>encode_field\(\ \$array_p\,\ \$record_p\ \)\;\
 \ \ \ \ \ \ \ \ \$dbh_out\-\>encode_record\(\ \$record_p\,\ \$record_p\)\;\
@@ -274,7 +253,7 @@ $T->demo(
 \
 \ \ \ \ \$dbh_out\-\>finish\(\)\;\
 \ \ \ \ \$dbh_in\-\>finish\(\)\;"); # typed in command           
-    #######
+          #######
     # Test the strict binary format.
     #
     unlink 'FormDBa1.tdb';
@@ -288,9 +267,9 @@ $T->demo(
     ($$record_p, $$fields_p) = ('','');
     while( $dbh_in->get_record($record_p) ) {
         $dbh_in->decode_record($record_p, $record_p);
-        $T->fout( 'FormDBr1.txt',$$record_p . "\n~-~\n", {append=>1} );
+        $fu->fout( 'FormDBr1.txt',$$record_p . "\n~-~\n", {append=>1} );
         $dbh_in->decode_field($record_p, $array_p);
-        $T->fout( 'FormDBa1.txt',join("\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'FormDBa1.txt',join("\n",@$array_p) . "\n~-~\n", {append=>1});
         ($$record_p, $$fields_p) = ('','');
         $dbh_out->encode_field( $array_p, $record_p );
         $dbh_out->encode_record( $record_p, $record_p);
@@ -301,39 +280,32 @@ $T->demo(
     $dbh_out->finish();
     $dbh_in->finish();; # execution
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBr1\.txt\'\,\ \{binary\=\>1\}\)", # typed in command           
-$T->fin('FormDBr1.txt', {binary=>1})); # execution
+demo( "\$fu\-\>fin\(\'FormDBr1\.txt\'\,\ \{binary\=\>1\}\)", # typed in command           
+      $fu->fin('FormDBr1.txt', {binary=>1})); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBa1\.txt\'\,\ \{binary\=\>1\}\)", # typed in command           
-$T->fin('FormDBa1.txt', {binary=>1})); # execution
+demo( "\$fu\-\>fin\(\'FormDBa1\.txt\'\,\ \{binary\=\>1\}\)", # typed in command           
+      $fu->fin('FormDBa1.txt', {binary=>1})); # execution
 
 
-$T->demo(   
-"\$T\-\>fin\(\'FormDBa1\.tdb\'\,\ \{binary\=\>1\}\)", # typed in command           
-$T->fin('FormDBa1.tdb', {binary=>1})); # execution
+demo( "\$fu\-\>fin\(\'FormDBa1\.tdb\'\,\ \{binary\=\>1\}\)", # typed in command           
+      $fu->fin('FormDBa1.tdb', {binary=>1})); # execution
 
 
-$T->demo(   
-"\ \ \ \ \#\#\#\#\#\#\#\
+demo( "\ \ \ \ \#\#\#\#\#\#\#\
 \ \ \ \ \#\ Test\ the\ strict\ binary\ format\.\
 \ \ \ \ \#\
 \ \ \ \ unlink\ \'FormDBa1\.tdb\'\;\
 \ \ \ \ unlink\ \'FormDBh1\.tdb\'\;\
 \ \ \ \ unlink\ \'FormDBr1\.txt\'\;\
 \ \ \ \ unlink\ \'FormDBa1\.txt\'\;"); # typed in command           
-    #######
+          #######
     # Test the strict binary format.
     #
     unlink 'FormDBa1.tdb';
     unlink 'FormDBh1.tdb';
     unlink 'FormDBr1.txt';
     unlink 'FormDBa1.txt';; # execution
-
-
-$T->finish();
 
 
 =head1 NAME

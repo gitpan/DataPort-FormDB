@@ -5,9 +5,8 @@ README
 lib/DataPort/DataFile.pm
 lib/DataPort/DataFileI.pm
 lib/DataPort/FileType/FormDB.pm
-t/DataPort/DataFile-STD.pm
 t/DataPort/DataFile.d
-t/DataPort/DataFile.std
+t/DataPort/DataFile.pm
 t/DataPort/DataFile.t
 t/DataPort/DataFile0.tdb
 t/DataPort/DataFile2.tdb
@@ -17,9 +16,8 @@ t/DataPort/DataFile3.txt
 t/DataPort/DataFile4.tdb
 t/DataPort/DataFile4.txt
 t/DataPort/DataFile5.txt
-t/DataPort/FormDB-STD.pm
 t/DataPort/FormDB.d
-t/DataPort/FormDB.std
+t/DataPort/FormDB.pm
 t/DataPort/FormDB.t
 t/DataPort/FormDB0.tdb
 t/DataPort/FormDBa2.tdb

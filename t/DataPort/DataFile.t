@@ -6,15 +6,16 @@ use strict;
 use warnings;
 use warnings::register;
 
-use vars qw($VERSION $DATE);
-$VERSION = '0.03';   # automatically generated file
-$DATE = '2003/06/13';
+use vars qw($VERSION $DATE $FILE);
+$VERSION = '0.04';   # automatically generated file
+$DATE = '2003/06/21';
+$FILE = __FILE__;
 
 use Test::Tech;
 use Getopt::Long;
 use Cwd;
 use File::Spec;
-
+use File::FileUtil;
 
 ##### Test Script ####
 #
@@ -22,17 +23,17 @@ use File::Spec;
 #
 # UUT: DataPort::DataFile
 #
-# The module STD::TestGen generated this test script from the contents of
+# The module Test::STDmaker generated this test script from the contents of
 #
-# DataPort/DataFile.std;
+# DataPort::DataFile::DataFile;
 #
 # Don't edit this test script file, edit instead
 #
-# DataPort/DataFile.std;
+# DataPort::DataFile::DataFile;
 #
 #	ANY CHANGES MADE HERE TO THIS SCRIPT FILE WILL BE LOST
 #
-#       the next time STD::TestGen generates this script file.
+#       the next time Test::STDmaker generates this script file.
 #
 #
 
@@ -43,7 +44,22 @@ use File::Spec;
 # use a BEGIN block so we print our plan before Module Under Test is loaded
 #
 BEGIN { 
-   use vars qw( $T $__restore_dir__);
+   use vars qw( $__restore_dir__ @__restore_inc__);
+
+   ########
+   # Working directory is that of the script file
+   #
+   $__restore_dir__ = cwd();
+   my ($vol, $dirs, undef) = File::Spec->splitpath( __FILE__ );
+   chdir $vol if $vol;
+   chdir $dirs if $dirs;
+
+   #######
+   # Add the library of the unit under test (UUT) to @INC
+   #
+   @__restore_inc__ = File::FileUtil->test_lib2inc();
+
+   unshift @INC, File::Spec->catdir( cwd(), 'lib' ); 
 
    ##########
    # Pick up a output redirection file and tests to skip
@@ -53,51 +69,39 @@ BEGIN {
    GetOptions('log=s' => \$test_log);
 
    ########
-   # Start a test with a new Tech
-   #
-   $T = new Test::Tech( $test_log );
-
-   ########
    # Create the test plan by supplying the number of tests
    # and the todo tests
    #
-   $T->work_breakdown(tests => 10);
-
-   ########
-   # Working directory is that of the script file
-   #
-   $__restore_dir__ = cwd();
-   my ($vol, $dirs, undef) = File::Spec->splitpath( $0 );
-   chdir $vol if $vol;
-   chdir $dirs if $dirs;
-
-   #######
-   # Add the library of the unit under test (UUT) to E:\User\SoftwareDiamonds\installation\libSD E:\User\SoftwareDiamonds\installation\lib E:\User\SoftwareDiamonds\installation\libperl D:/Perl/lib D:/Perl/site/lib .
-   #
-   my $work_dir = cwd();
-   chdir File::Spec->updir();
-   my $lib_dir = File::Spec->catdir( cwd(), 'lib' );
-   unshift @INC, $lib_dir;
-   chdir $work_dir;
+   require Test::Tech;
+   Test::Tech->import( qw(plan ok skip skip_tests tech_config) );
+   plan(tests => 10);
 
 }
+
+
 
 END {
 
    #########
-   # Restore working directory back to when enter script
+   # Restore working directory and @INC back to when enter script
    #
+   @INC = @__restore_inc__;
    chdir $__restore_dir__;
 }
 
-$T->test( [my $loaded = $T->is_package_loaded('DataPort::DataFileI')], # actual results
-          [ ''], # expected results
-          'UUT not loaded');
+   # Perl code from C:
+    use File::FileUtil;
+    my $fu = 'File::FileUtil';
+
+ok(  my $loaded = $fu->is_package_loaded('DataPort::DataFileI'), # actual results
+      '', # expected results
+     '',
+     'UUT not loaded');
 
 #  ok:  1
 
    # Perl code from C:
-my $errors = $T->load_package( 'DataPort::DataFileI' );
+my $errors = $fu->load_package( 'DataPort::DataFileI' );
 
 
 ####
@@ -106,11 +110,12 @@ my $errors = $T->load_package( 'DataPort::DataFileI' );
 # 
 
 #####
-$T->skip_rest() unless $T->verify(
-    $loaded, # condition to skip test   
-    [$errors], # actual results
-    [''],  # expected results
-    'Load UUT');
+skip_tests( 1 ) unless skip(
+      $loaded, # condition to skip test   
+      $errors, # actual results
+      '',  # expected results
+      '',
+      'Load UUT');
  
 #  ok:  2
 
@@ -121,9 +126,10 @@ $T->skip_rest() unless $T->verify(
 # 
 
 #####
-$T->test( [$T->pod_errors( 'DataPort::DataFile')], # actual results
-          [0], # expected results
-          'No pod errors');
+ok(  $fu->pod_errors( 'DataPort::DataFile'), # actual results
+     0, # expected results
+     '',
+     'No pod errors');
 
 #  ok:  3
 
@@ -136,13 +142,14 @@ $T->test( [$T->pod_errors( 'DataPort::DataFile')], # actual results
                option1 => '1', option2 => '2' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $T->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-        $T->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     };
 
-$T->test( [$T->fin('DataFile1.txt')], # actual results
-          [$T->fin('DataFile2.txt')], # expected results
-          'get with record');
+ok(  $fu->fin('DataFile1.txt'), # actual results
+     $fu->fin('DataFile2.txt'), # expected results
+     '',
+     'get with record');
 
 #  ok:  4
 
@@ -154,13 +161,14 @@ $T->test( [$T->fin('DataFile1.txt')], # actual results
                option3 => '3', option4 => '4',  option5 => '5' );
 
     while( $dbh->get($array_p) ) {
-        $T->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }
     $dbh->finish();
 
-$T->test( [$T->fin('DataFile1.txt')], # actual results
-          [$T->fin('DataFile3.txt')], # expected results
-          'get without record');
+ok(  $fu->fin('DataFile1.txt'), # actual results
+     $fu->fin('DataFile3.txt'), # expected results
+     '',
+     'get without record');
 
 #  ok:  5
 
@@ -176,19 +184,21 @@ $T->test( [$T->fin('DataFile1.txt')], # actual results
     foreach $array_p (@db) {
         $record = ''; 
         $dbh->put($array_p, $record_p);
-        $T->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $fu->fout('DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
     }
     $dbh->finish();
 
-$T->test( [$T->fin('DataFile1.tdb')], # actual results
-          [$T->fin('DataFile2.tdb')], # expected results
-          'put with record');
+ok(  $fu->fin('DataFile1.tdb'), # actual results
+     $fu->fin('DataFile2.tdb'), # expected results
+     '',
+     'put with record');
 
 #  ok:  6
 
-$T->test( [$T->fin('DataFile1.txt')], # actual results
-          [$T->fin('DataFile4.txt')], # expected results
-          'put with record');
+ok(  $fu->fin('DataFile1.txt'), # actual results
+     $fu->fin('DataFile4.txt'), # expected results
+     '',
+     'put with record');
 
 #  ok:  7
 
@@ -207,9 +217,10 @@ $T->test( [$T->fin('DataFile1.txt')], # actual results
     }
     $dbh->finish();
 
-$T->test( [$T->fin('DataFile1.tdb')], # actual results
-          [$T->fin('DataFile3.tdb')], # expected results
-          'put with without record');
+ok(  $fu->fin('DataFile1.tdb'), # actual results
+     $fu->fin('DataFile3.tdb'), # expected results
+     '',
+     'put with without record');
 
 #  ok:  8
 
@@ -227,9 +238,10 @@ $T->test( [$T->fin('DataFile1.tdb')], # actual results
     }
     $dbh->finish();
 
-$T->test( [$T->fin('DataFile1.tdb')], # actual results
-          [$T->fin('DataFile4.tdb')], # expected results
-          'binary put with without record');
+ok(  $fu->fin('DataFile1.tdb'), # actual results
+     $fu->fin('DataFile4.tdb'), # expected results
+     '',
+     'binary put with without record');
 
 #  ok:  9
 
@@ -241,14 +253,15 @@ $T->test( [$T->fin('DataFile1.tdb')], # actual results
                binary => 1, option10 => '10', option11 => '11' );
 
     while( $dbh->get($array_p, $record_p) ) {
-        $T->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
-        $T->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', $$record_p . "\n~-~\n", {append=>1});
+        $fu->fout( 'DataFile1.txt', join("\n+--\n",@$array_p) . "\n~-~\n", {append=>1});
     }
     $dbh->finish();
 
-$T->test( [$T->fin('DataFile1.txt')], # actual results
-          [$T->fin('DataFile5.txt')], # expected results
-          'binary get with record');
+ok(  $fu->fin('DataFile1.txt'), # actual results
+     $fu->fin('DataFile5.txt'), # expected results
+     '',
+     'binary get with record');
 
 #  ok:  10
 
@@ -257,12 +270,9 @@ $T->test( [$T->fin('DataFile1.txt')], # actual results
     unlink 'DataFile1.tdb';
 
 
-$T->finish();
-
-
 =head1 NAME
 
-DataFile.t - test script for DataPort/DataFile.pm
+DataFile.t - test script for DataPort::DataFile
 
 =head1 SYNOPSIS
 
@@ -326,22 +336,6 @@ OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE POSSIBILITY OF SUCH DAMAGE.
-
-=for html
-<hr>
-<p><br>
-<!-- BLK ID="NOTICE" -->
-<!-- /BLK -->
-<p><br>
-<!-- BLK ID="OPT-IN" -->
-<!-- /BLK -->
-<p><br>
-<!-- BLK ID="EMAIL" -->
-<!-- /BLK -->
-<p><br>
-<!-- BLK ID="LOG_CGI" -->
-<!-- /BLK -->
-<p><br>
 
 =cut
 

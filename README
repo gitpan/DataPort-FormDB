@@ -5,11 +5,11 @@ Title Page
 
      Text Database API
 
-     Revision: -
+     Revision: A
 
-     Version: 0.01
+     Version: 0.02
 
-     Date: 2003/06/08
+     Date: 2003/06/12
 
      Prepared for: General Public 
 
@@ -40,11 +40,28 @@ Title Page
 
     These features are established by the referenced documents.
 
-    This release adds text database capabilities.
+    DataPort accesses different types of data sources in different formats
+    and streams them to a stanadard pure Perl API.
+
+    The feature data source is the text base FormDB. The FormDB data source
+    has improve flexiability and performance over other text base formats
+    such as the Comma Separated Variable (CSV) format.
+
+    The DataPort::FileType::FormDB module is an integral part of the US DOD
+    SDT2167A bundle of modules. The data used by Test::STDmaker and
+    ExtUtils::SVDmaker are stored in this format.
+
+    The dependency of the program modules in the US DOD STD2167A bundle is
+    as follows:
+
+     Test::TestUtil
+         Test::Tester
+            DataPort::FormDB
+                Test::STDmaker ExtUtils::SVDmaker
 
   1.3 Document overview.
 
-    This document releases DataPort::FormDB version 0.01 providing
+    This document releases DataPort::FormDB version 0.02 providing
     description of the inventory, installation instructions and other
     information necessary to utilize and track this release.
 
@@ -58,8 +75,8 @@ Title Page
 
     This document releases the file found at the following repository:
 
-       http://www.softwarediamonds/packages/DataPort-FormDB-0.01
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.01
+       http://www.softwarediamonds/packages/DataPort-FormDB-0.02
+       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.02
 
   3.1.2 Copyright.
 
@@ -100,35 +117,101 @@ Title Page
     The content of the released, compressed, archieve file, consists of the
     following files:
 
-    file version date comment
-    ------------------------------------------------------------ -------
-    ---------- ------------------------ lib/SVD/Site/DataPort_FormDB.pm 0.01
-    2003/06/08 new MANIFEST 0.01 2003/06/08 generated new Makefile.PL 0.01
-    2003/06/08 generated new README 0.01 2003/06/08 generated new
-    lib/DataPort/DataFile.pm 0.01 2003/06/08 new lib/DataPort/DataFileI.pm
-    0.01 2003/06/08 new lib/DataPort/FileType/FormDB.pm 0.01 2003/06/08 new
-    t/DataPort/DataFile-STD.pm 0.01 2003/06/08 new t/DataPort/DataFile.d
-    0.01 2003/06/08 new t/DataPort/DataFile.std 0.01 2003/06/08 new
-    t/DataPort/DataFile.t 0.01 2003/06/08 new t/DataPort/DataFile0.tdb 0.01
-    2003/06/08 new t/DataPort/DataFile2.tdb 0.01 2003/06/08 new
-    t/DataPort/DataFile2.txt 0.01 2003/06/08 new t/DataPort/DataFile3.tdb
-    0.01 2003/06/08 new t/DataPort/DataFile3.txt 0.01 2003/06/08 new
-    t/DataPort/DataFile4.tdb 0.01 2003/06/08 new t/DataPort/DataFile4.txt
-    0.01 2003/06/08 new t/DataPort/DataFile5.txt 0.01 2003/06/08 new
-    t/DataPort/FormDB-STD.pm 0.01 2003/06/08 new t/DataPort/FormDB.d 0.01
-    2003/06/08 new t/DataPort/FormDB.std 0.01 2003/06/08 new
-    t/DataPort/FormDB.t 0.01 2003/06/08 new t/DataPort/FormDB0.tdb 0.01
-    2003/06/08 new t/DataPort/FormDBa2.tdb 0.01 2003/06/08 new
-    t/DataPort/FormDBa2.txt 0.01 2003/06/08 new t/DataPort/FormDBa3.tdb 0.01
-    2003/06/08 new t/DataPort/FormDBa3.txt 0.01 2003/06/08 new
-    t/DataPort/FormDBa4.tdb 0.01 2003/06/08 new t/DataPort/FormDBa4.txt 0.01
-    2003/06/08 new t/DataPort/FormDBr2.txt 0.01 2003/06/08 new
-    t/DataPort/FormDBr3.txt 0.01 2003/06/08 new t/DataPort/FormDBr4.txt 0.01
-    2003/06/08 new t/DataPort/FormDBs0.tdb 0.01 2003/06/08 new
+     file                                                         version date       comment
+     ------------------------------------------------------------ ------- ---------- ------------------------
+     lib/Docs/Site_SVD/DataPort_FormDB.pm                         0.02    2003/06/12 revised 0.01
+     MANIFEST                                                     0.02    2003/06/12 generated, replaces 0.01
+     Makefile.PL                                                  0.02    2003/06/12 generated, replaces 0.01
+     README                                                       0.02    2003/06/12 generated, replaces 0.01
+     lib/DataPort/DataFile.pm                                     0.01    2003/06/08 unchanged
+     lib/DataPort/DataFileI.pm                                    0.01    2003/06/08 unchanged
+     lib/DataPort/FileType/FormDB.pm                              0.01    2003/06/08 unchanged
+     t/DataPort/DataFile-STD.pm                                   0.01    2003/06/08 unchanged
+     t/DataPort/DataFile.d                                        0.01    2003/06/08 unchanged
+     t/DataPort/DataFile.std                                      0.01    2003/06/08 unchanged
+     t/DataPort/DataFile.t                                        0.02    2003/06/12 revised 0.01
+     t/DataPort/DataFile0.tdb                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile2.tdb                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile2.txt                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile3.tdb                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile3.txt                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile4.tdb                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile4.txt                                     0.01    2003/06/08 unchanged
+     t/DataPort/DataFile5.txt                                     0.01    2003/06/08 unchanged
+     t/DataPort/FormDB-STD.pm                                     0.01    2003/06/08 unchanged
+     t/DataPort/FormDB.d                                          0.01    2003/06/08 unchanged
+     t/DataPort/FormDB.std                                        0.01    2003/06/08 unchanged
+     t/DataPort/FormDB.t                                          0.02    2003/06/12 revised 0.01
+     t/DataPort/FormDB0.tdb                                       0.01    2003/06/08 unchanged
+     t/DataPort/FormDBa2.tdb                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBa2.txt                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBa3.tdb                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBa3.txt                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBa4.tdb                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBa4.txt                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBr2.txt                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBr3.txt                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBr4.txt                                      0.01    2003/06/08 unchanged
+     t/DataPort/FormDBs0.tdb                                      0.01    2003/06/08 unchanged
 
   3.3 Changes
 
-    This is the original release. There are no previous releases to change.
+    At 04:10 AM 6/9/2003 +0000, Josts Smokehouse wrote:
+
+    Hello, Samson Monaco Tutankhamen! Thanks for uploading your works to
+    CPAN.
+
+    I noticed that the test suite seem to fail without these modules:
+
+    STD::Tester
+
+    As such, adding the prerequisite module(s) to 'PREREQ_PM' in your
+    Makefile.PL should solve this problem. For example:
+
+     WriteMakefile(
+        AUTHOR      => 'Samson Monaco Tutankhamen (support@SoftwareDiamonds.com)',
+        ... # other information
+        PREREQ_PM   => {
+            'STD::Tester'   => '0', # or a minimum workable version
+        }
+     );
+
+    If you are interested in making a more flexible Makefile.PL that can
+    probe for missing dependencies and install them, ExtUtils::AutoInstall
+    at <http://search.cpan.org/search?dist=ExtUtils-AutoInstall> may be
+    worth a look.
+
+    Thanks! :-)
+
+    ~~~~~~~~~~~~~~~~~
+
+    CORRECTIVE ACTION:
+
+    The Makefile.PL is automatically generated by ExtUtils::SVDmaker from
+    the data stored in the DataPort::FileType::FormDB format in the
+    Docs::Site_SVD::DataPort-FormDB module. For now, in
+    Docs::Site_SVD::DataPort-FormDB
+
+    Changed
+
+     PREREQ_PM: ^
+
+    to
+
+     PREREQ_PM:
+     'Test::TestUtil' => 0,
+     'Test::Tester' => 0,
+     ^
+
+    and regenerated the distribution using ExtUtils::SVDmaker
+
+    Uploaded Test::TestUtil and Test::Tester to CPAN in order to resolve the
+    prerequiste.
+
+    For a future project, should follow up on Mr. Smokehouse's
+    recommendation and investigate ExtUtils-AutoInstall. Hopefully
+    ExtUtils::SVDmaker can be extended by using ExtUtils::AutoInstall
+    intact. Using the work of others can result in instant feature creep.
 
   3.4 Adaptation data.
 
@@ -162,8 +245,8 @@ Title Page
 
     The distribution file is at the following respositories:
 
-       http://www.softwarediamonds/packages/DataPort-FormDB-0.01
-       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.01
+       http://www.softwarediamonds/packages/DataPort-FormDB-0.02
+       http://www.perl.com/CPAN-local/authors/id/S/SO/SOFTDIA/DataPort-FormDB-0.02
 
   3.6.1 Installation support.
 
@@ -200,5 +283,6 @@ Title Page
     SVD Software Version Description
 
 2.0 SEE ALSO
-     L<SOFTWARE VERSION DESCRIPTION (SVD) DID|US_DOD::SVD>
+     L<Software Version Description (SVD) DID|Docs::US_DOD::SVD>
+     L<DataPort::FileType::FormDB|DataPort::FileType::FormDB>
 

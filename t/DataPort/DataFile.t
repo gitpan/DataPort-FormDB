@@ -7,10 +7,10 @@ use warnings;
 use warnings::register;
 
 use vars qw($VERSION $DATE);
-$VERSION = '0.01';   # automatically generated file
-$DATE = '2003/06/08';
+$VERSION = '0.02';   # automatically generated file
+$DATE = '2003/06/12';
 
-use STD::Tester;
+use Test::Tester;
 use Getopt::Long;
 use Cwd;
 use File::Spec;
@@ -55,7 +55,7 @@ BEGIN {
    ########
    # Start a test with a new tester
    #
-   $T = new STD::Tester( $test_log );
+   $T = new Test::Tester( $test_log );
 
    ########
    # Create the test plan by supplying the number of tests

@@ -1,4 +1,4 @@
-lib/SVD/Site/DataPort_FormDB.pm
+lib/Docs/Site_SVD/DataPort_FormDB.pm
 MANIFEST
 Makefile.PL
 README

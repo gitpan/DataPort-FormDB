@@ -3,11 +3,11 @@
 # 
 # The module Build::SVDgen generated this file from the contents of
 #
-# E:\User\SoftwareDiamonds\installation\lib/SVD/Site/DataPort_FormDB.pm 
+# E:\User\SoftwareDiamonds\installation\lib/Docs/Site_SVD/DataPort_FormDB.pm 
 #
 # Don't edit this file, edit instead
 #
-# E:\User\SoftwareDiamonds\installation\lib/SVD/Site/DataPort_FormDB.pm
+# E:\User\SoftwareDiamonds\installation\lib/Docs/Site_SVD/DataPort_FormDB.pm
 #
 #	ANY CHANGES MADE HERE WILL BE LOST
 #
@@ -29,11 +29,12 @@ else {
 WriteMakefile(
     NAME => 'DataPort::FormDB',
     DISTNAME => 'DataPort-FormDB',
-    VERSION  => '0.01',
+    VERSION  => '0.02',
     dist     => {COMPRESS => 'gzip',
                 'gz' => 'gz'},
     test     => {TESTS => $tests},
-    PREREQ_PM => {},
+    PREREQ_PM => {'Test::TestUtil' => 0,
+'Test::Tester' => 0,},
     EXE_FILES => $exe,
 
     ($] >= 5.005 ?     
